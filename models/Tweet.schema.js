@@ -2,18 +2,12 @@ const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema(
   {
-    category: String,
-    resource_type: String,
-    state: String,
-    district: String,
-    city: String,
+    roles: [String],
+    type: String,
     phone: [String],
     email: [String],
-    verification_status: String,
-    last_verified_on: String,
     created_by: String,
     created_on: Number,
-    manual_parsing_required: Boolean,
     tweet_id: String,
     tweet_url: String,
     author_id: String,

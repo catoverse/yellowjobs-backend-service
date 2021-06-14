@@ -81,36 +81,12 @@ if (process.env.NODE_ENV === "production") {
   cron.schedule("*/1 * * * *", async () => {
     console.log("Fetching Tweets...");
     console.time("fetchTweets");
+    
     fetchAndSaveTweets().then(() => {
       console.timeEnd("fetchTweets");
       console.log("Done Fetching Tweets!");
     });
   });
-
-  //Check Cities every hr
-  cron.schedule("*/60 * * * *", async () => {
-    console.log("\n======Check Cities Cronjob======\n");
-    console.time("checkCities");
-    checkCities().then(() => {
-      console.timeEnd("checkCities");
-      console.log("\n======DONE Check Cities Cronjob======\n");
-    });
-  });
-
-  //Delete fraud tweets every hr.
-  cron.schedule("*/60 * * * *", async () => {
-    console.log("Deleting fraud Tweets...");
-    console.time("deleteFraud");
-    deleteFraud().then(() => {
-      console.timeEnd("deleteFraud");
-      console.log("Done deleting fraud Tweets!");
-    });
-  });
-
-  //Telegram Bot
-  telegram()
-    .then(() => console.log("Telegram Bot Active! 🤖"))
-    .catch((err) => console.log("Telegram Bot Error:", err));
 }
 
 //Start Expres Server
