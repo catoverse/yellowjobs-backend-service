@@ -11,7 +11,7 @@ const schema = new mongoose.Schema(
     created_by: String,
     created_on: Number,
     
-    need_manual_verification: boolean,
+    need_manual_verification: Boolean,
     
     tweet_id: String,
     tweet_url: String,
