@@ -1,29 +1,22 @@
 require("dotenv").config();
 
-//dependencies
 const cron = require("node-cron");
 const express = require("express");
 const cors = require("cors");
-const app = express();
-
+const morgan = require("morgan");
+const mongoose = require("mongoose");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
-const morgan = require("morgan");
-const mongoose = require("mongoose");
+const { fetchAndSaveTweets } = require("./fetchTweets");
+const apiRoutes = require("./routes/apiRoutes");
+//const meta = require("./routes/meta");
 
-//Get Mongo connection URI from env var
+const app = express();
+
 const DB_URL = process.env.MONGO_URI;
+const PORT = process.env.PORT || 4000;
 
-//Connect mongoose
-mongoose
-  .connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    if (process.env.NODE_ENV === "production") fetchAndSaveTweets();
-    console.log("✅ Databse Connected!");
-  });
-
-// Swagger config
 const swaggerOptions = {
   swaggerDefinition: {
     info: {
@@ -40,57 +33,36 @@ const swaggerOptions = {
   // ['.routes/*.js']
   apis: ["routes/apiRoutes.js", "routes/meta.js", "routes/volunteerRoutes.js"],
 };
-
-//setup Swagger for auto documentation
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
-//Import Routes
-const apiRoutes = require("./routes/apiRoutes");
-const volunteerRoutes = require("./routes/volunteerRoutes");
-const meta = require("./routes/meta");
-
-//Import scripts
-const { fetchAndSaveTweets } = require("./fetchTweets");
-const { deleteFraud } = require("./deleteTweets");
-const { checkCities } = require("./checkCities");
-
-//Telegram Bot
-const telegram = require("./telegram");
-
-//Express options
 app.use(morgan(process.env.NODE_ENV == "production" ? "common" : "dev"));
 app.use(express.json());
 
-//CORS
 app.options("/volunteer/*", cors());
 app.use(cors());
-// app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   next();
-// });
 
-//Express Routes
 app.use("/api", apiRoutes);
-app.use("/volunteer", volunteerRoutes);
-app.use("/api", meta);
+// app.use("/api", meta);
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-//Schedulers
-if (process.env.NODE_ENV === "production") {
-  //Fetch new tweets every minute.
-  cron.schedule("*/1 * * * *", async () => {
-    console.log("Fetching Tweets...");
-    console.time("fetchTweets");
+mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+  console.log("✅ Databse Connected!");
+
+  fetchAndSaveTweets();
+
+  if (process.env.NODE_ENV === "production") {
+    cron.schedule("*/10 * * * *", async () => {
+      console.log("Fetching Tweets...");
+      console.time("fetchTweets");
+      
+      await fetchAndSaveTweets()
     
-    fetchAndSaveTweets().then(() => {
       console.timeEnd("fetchTweets");
       console.log("Done Fetching Tweets!");
     });
-  });
-}
+  }
 
-//Start Expres Server
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, "0.0.0.0", () => {
-  console.log("🚀 Server Ready!");
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log("🚀 Server Ready!");
+  });
 });
