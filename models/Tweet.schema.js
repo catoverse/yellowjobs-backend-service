@@ -24,4 +24,4 @@ const schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.models.Tweet ?? mongoose.model("Tweet", schema);
+module.exports = mongoose.models.Tweet || mongoose.model("Tweet", schema);
