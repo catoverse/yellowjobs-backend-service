@@ -57,7 +57,7 @@ const isValid = tweet => {
 };
 
 const fetchTweets = async () => {
-  const newestID = 0 && Number((await Meta.findOne({})).sinceId);
+  const newestID = Number((await Meta.findOne({})).sinceId);
 
   const apiRes = await fetchSearchResults(newestID);
   const tweets = apiRes.statuses.filter(isValid).map(buildTweetObject);
