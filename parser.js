@@ -1,3 +1,7 @@
+const rolesRaw = require("./data/roles.json");
+const categories = Object.keys(rolesRaw).map(category => Object.keys(rolesRaw[category]).map(el => ({ [el]: category }))).flat().reduce((acc, el) => ({ ...acc, ...el }), {});
+const keywords = Object.values(rolesRaw).map(r => Object.entries(r).map(([role, keywords]) => keywords.map(el => ({ [el]: role })))).flat().flat().reduce((acc, el) => ({ ...acc, ...el }), {});
+
 const normalize = (text) => {
   return text
     .toLowerCase()
@@ -41,10 +45,6 @@ const parsePhoneNumbers = (text) => {
   ].filter((_) => _);
 };
 
-const parseRoles = (text) => {
-  return [];
-};
-
 const parseJobType = (text) => {
   if(text.search("parttime") != -1){
     return "parttime";
@@ -59,11 +59,24 @@ const needManualVerification = (text) => {
   return text.search(/\?/) != -1;
 };
 
+const parseRoles = (text) => {
+  const roles = [];
+
+  for(const keyword in keywords){
+    if(text.search("keyword") != -1){
+      roles.push(keywords[keyword]);
+    }
+  }
+  return roles;
+};
+
 const parseTweet = (raw_text) => {
   const text = normalize(raw_text);
+  const roles = parseRoles(text);
 
   return {
-    roles: parseRoles(text),
+    categories: roles.map(role => categories[role]),
+    roles: roles,
     type: parseJobType(text),
     phone_numbers: parsePhoneNumbers(raw_text),
     emails: raw_text.match(emailRegex) || [],
@@ -71,4 +84,4 @@ const parseTweet = (raw_text) => {
   };
 };
 
-module.exports = { parseTweet };
+module.exports = { parseTweet, keywords, categories };
