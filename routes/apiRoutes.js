@@ -34,16 +34,23 @@ router.get("/", async (req, res) => {
  *             - in: query
  *               name: role
  *               type: string
- *               description: role
+ *               description: role to query for
  *             - in: query
  *               name: type
  *               type: string
  *               description: fulltime/parttime/internship
+ *             - in: query
+ *               name: category
+ *               type: string
+ *               description: category to query for
+ *             - in: query
+ *               name: q
+ *               type: string
+ *               description: keyword search
  *         responses:
  *             200:
  *                 description: A list of n number of resource objects
  */
-
 router.get("/tweets", tweetController.findAll);
 
 module.exports = router;

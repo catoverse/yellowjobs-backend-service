@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: carmy-backend-service
+  name: yellowjobs-backend-service
 spec:
   selector:
-    app: carmy-backend
+    app: yellowjobs-backend
   ports:
     - protocol: "TCP"
       port: 4000
@@ -15,21 +15,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: carmy-backend
+  name: yellowjobs-backend
 spec:
   selector:
     matchLabels:
-      app: carmy-backend
+      app: yellowjobs-backend
   replicas: 1
   template:
     metadata:
       labels:
-        app: carmy-backend
+        app: yellowjobs-backend
     spec:
       containers:
-        - name: carmy-backend
-          #image: registry.digitalocean.com/covid-army-registry/carmy-backend:latest
-          image: docker.io/covidarmy/covid-army-backend:latest
+        - name: yellowjobs-backend
+          image: docker.io/yellowjobs/yellowjobs-backend:latest
           env:
             - name: BEARER_TOKEN
               valueFrom:

@@ -21,13 +21,13 @@ const swaggerOptions = {
   swaggerDefinition: {
     info: {
       version: "1.0.0",
-      title: "covid.army API",
-      description: "Covid.army API Information",
+      title: "JellowJobs API",
+      description: "JellowJobs API Information",
       contact: {
         name: "API Support",
-        url: "https://twitter.com/covid_army",
+        url: "",
       },
-      servers: ["http://covid.army"],
+      servers: ["http://jellowjobs.org"],
     },
   },
   // ['.routes/*.js']
