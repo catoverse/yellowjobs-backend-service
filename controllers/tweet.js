@@ -32,10 +32,10 @@ exports.findAll = async (req, res) => {
     const { limit = 20, offset = 0, category, role, type, q } = req.query;
     const mongoQuery = {};
 
-    if(type) mongoQuery.type = type;
-    if(category) mongoQuery.categories = category;
+    if(type) mongoQuery.type = type.toLowerCase();
+    if(category) mongoQuery.categories = category.toLowerCase().split("-").map(a => a[0].toUpperCase() + a.substring(1, a.length)).join(" ");
 
-    if(role) mongoQuery.roles = role;
+    if(role) mongoQuery.roles = role.toLowerCase().split("-").map(a => a[0].toUpperCase() + a.substring(1, a.length)).join(" ");
     else if(q) mongoQuery.roles = { $all: parseRolesFromQuery(q) };
 
     res.send(
