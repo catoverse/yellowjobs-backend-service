@@ -27,8 +27,9 @@ const buildTweetObject = (tweet) => {
 
   const obj = {
     type: data.type,
+    categories: data.categories,
     roles: data.roles,
-    
+
     phone: data.phone_numbers,
     email: data.emails,
 

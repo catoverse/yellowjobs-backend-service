@@ -1,12 +1,13 @@
 const Tweet = require("../models/Tweet.schema");
-const { keywords, caategories } = require("../parser");
+const { keywords, categories } = require("../parser");
 
 const parseRolesFromQuery = (q) => {
-  const text = q.split(/s+/g);
-  const nextText = [];
+  let text = q.split(/\s+/g);
+  let nextText = [];
   const roles = [];
 
-  while(1){
+  do {
+    nextText = [];
     for(let word of text){
       const role = keywords[word];
       
@@ -20,11 +21,8 @@ const parseRolesFromQuery = (q) => {
     for(let i = 0; i < nextText.length - 1; ++i){
       text.push(nextText[i]+nextText[i+1]);
     }
-    if(nextText.length == 1){
-      break;
-    }
-    nextText = [];
-  }
+  } while(nextText.length <= 1);
+  
   console.log(nextText);
   return roles;
 };
@@ -35,10 +33,10 @@ exports.findAll = async (req, res) => {
     const mongoQuery = {};
 
     if(type) mongoQuery.type = type;
-    if(category) mongoQuery.category = category;
+    if(category) mongoQuery.categories = category;
 
-    if(role) mongoQuery.role = role;
-    else if(q) mongoQuery.role = { $in: parseRolesFromQuery(q) };
+    if(role) mongoQuery.roles = role;
+    else if(q) mongoQuery.roles = { $all: parseRolesFromQuery(q) };
 
     res.send(
       await Tweet.find(mongoQuery, null, {

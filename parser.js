@@ -5,9 +5,7 @@ const keywords = Object.values(rolesRaw).map(r => Object.entries(r).map(([role, 
 const normalize = (text) => {
   return text
     .toLowerCase()
-    .split(/ |\n|\t|\.|,/g)
-    .filter((i) => i)
-    .join("");
+    .replace(/\s+|\?|!|&|\.|,|:|\'|\"|\/|\(|\)|-/g, "");
 };
 /*
 const find = (text, values) => {
@@ -60,22 +58,38 @@ const needManualVerification = (text) => {
 };
 
 const parseRoles = (text) => {
-  const roles = [];
+  let words = text.toLowerCase().split(/\s+|\?|!|&|\.|,|:|\'|\"|\/|\(|\)|-/g);
+  let nextWords = [];
+  const roles = new Set;
+  
+  console.log("CPU goes brr", words, text);
+  
+  do {
+    nextWords = [];
 
-  for(const keyword in keywords){
-    if(text.search("keyword") != -1){
-      roles.push(keywords[keyword]);
+    for(let word of words){
+      // console.log(word, keywords[word])
+      if(keywords[word]){
+        roles.add(keywords[word]);
+      } else {
+        nextWords.push(word);
+      }
     }
-  }
-  return roles;
+    words = [];
+    for(let i = 0; i < nextWords.length - 1; ++i){
+      words.push(nextWords[i] + nextWords[i+1]);
+    }
+  } while(nextWords.length <= 1);
+
+  return [...roles];
 };
 
 const parseTweet = (raw_text) => {
   const text = normalize(raw_text);
-  const roles = parseRoles(text);
+  const roles = parseRoles(raw_text);
 
   return {
-    categories: roles.map(role => categories[role]),
+    categories: [... new Set(roles.map(role => categories[role]))],
     roles: roles,
     type: parseJobType(text),
     phone_numbers: parsePhoneNumbers(raw_text),
