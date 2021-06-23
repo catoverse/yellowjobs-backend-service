@@ -68,7 +68,6 @@ const parseRoles = (text) => {
     nextWords = [];
 
     for(let word of words){
-      // console.log(word, keywords[word])
       if(keywords[word]){
         roles.add(keywords[word]);
       } else {
@@ -94,7 +93,7 @@ const parseTweet = (raw_text) => {
     type: parseJobType(text),
     phone_numbers: parsePhoneNumbers(raw_text),
     emails: raw_text.match(emailRegex) || [],
-    need_manual_verification: needManualVerification(text)
+    need_manual_verification: needManualVerification(raw_text)
   };
 };
 

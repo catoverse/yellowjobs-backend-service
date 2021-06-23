@@ -30,7 +30,7 @@ const parseRolesFromQuery = (q) => {
 exports.findAll = async (req, res) => {
   try {
     const { limit = 20, offset = 0, category, role, type, q } = req.query;
-    const mongoQuery = {};
+    const mongoQuery = { need_manual_verification: false };
 
     if(type) mongoQuery.type = type.toLowerCase();
     if(category) mongoQuery.categories = category.toLowerCase().split("-").map(a => a[0].toUpperCase() + a.substring(1, a.length)).join(" ");
