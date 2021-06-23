@@ -12,7 +12,7 @@ const Meta = require("./models/Meta.schema");
 const MAX_RESULTS = 100;
 
 const fetchSearchResults = async (newestID) => {
-  const url = `https://api.twitter.com/1.1/search/tweets.json?count=${MAX_RESULTS}&${newestID ? `since_id=${newestID}&` : ""}q=(("looking for" -job -gig -intern -role -am) OR hiring) remote -filter:retweets -filter:quote&tweet_mode=extended&include_entities=false`;
+  const url = `https://api.twitter.com/1.1/search/tweets.json?count=${MAX_RESULTS}&${newestID ? `since_id=${newestID}&` : ""}q=(("looking for" -job -gig -intern -role -am) OR hiring) remote -podcast -know -how -tips -nobody -anybody -anyone -blog -filter:retweets -filter:quote&tweet_mode=extended&include_entities=false`;
 
   const res = await fetch(url, {
     method: "GET",
