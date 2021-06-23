@@ -21,11 +21,11 @@ const find = (text, values) => {
   return Array.from(set) || [];
 };
 */
-const phoneRegex =
-  /(?!([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4}|[0-9]{2}))(\+?\d[\d -]{8,12}\d)/g;
+// const phoneRegex =
+//  /(?!([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4}|[0-9]{2}))(\+?\d[\d -]{8,12}\d)/g;
 const emailRegex =
   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/g;
-
+/*
 const parsePhoneNumbers = (text) => {
   return [
     ...new Set(
@@ -42,7 +42,7 @@ const parsePhoneNumbers = (text) => {
     ),
   ].filter((_) => _);
 };
-
+*/
 const parseJobType = (text) => {
   if(text.search("parttime") != -1){
     return "parttime";
@@ -91,7 +91,6 @@ const parseTweet = (raw_text) => {
     categories: [... new Set(roles.map(role => categories[role]))],
     roles: roles,
     type: parseJobType(text),
-    phone_numbers: parsePhoneNumbers(raw_text),
     emails: raw_text.match(emailRegex) || [],
     need_manual_verification: needManualVerification(raw_text)
   };

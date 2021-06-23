@@ -6,7 +6,6 @@ const schema = new mongoose.Schema(
     categories: [String],
     roles: [String],
 
-    phone: [String],
     email: [String],
     
     created_by: String,
