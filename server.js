@@ -21,13 +21,13 @@ const swaggerOptions = {
   swaggerDefinition: {
     info: {
       version: "1.0.0",
-      title: "JellowJobs API",
-      description: "JellowJobs API Information",
+      title: "ellowJobs API",
+      description: "YellowJobs API Information",
       contact: {
         name: "API Support",
         url: "",
       },
-      servers: ["http://jellowjobs.org"],
+      servers: ["http://yellowjobs.org"],
     },
   },
   // ['.routes/*.js']
