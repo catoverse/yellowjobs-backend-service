@@ -50,6 +50,9 @@ const parseJobType = (text) => {
   if(text.search("intern") != -1){
     return "internship";
   }
+  if(text.search(/contract|freelance|temporary|consultant/g) != -1){
+    return "freelance";
+  }
   return "fulltime";
 };
 
