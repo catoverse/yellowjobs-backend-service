@@ -22,8 +22,8 @@ const fetchSearchResults = async (newestID) => {
   return await res.json();
 };
 
-const buildTweetObject = (tweet) => {
-  const data = parseTweet(tweet.full_text || tweet.text);
+const buildTweetObject = async (tweet) => {
+  const data = await parseTweet(tweet.full_text || tweet.text);
 
   const obj = {
     type: data.type,
@@ -31,7 +31,8 @@ const buildTweetObject = (tweet) => {
     roles: data.roles,
     
     email: data.emails,
-
+    urls: data.urls,
+    
     created_by: tweet.user.name,
     created_on: new Date(tweet.created_at).getTime(),
 
@@ -60,7 +61,7 @@ const fetchTweets = async () => {
   const newestID = Number((await Meta.findOne({})).sinceId);
 
   const apiRes = await fetchSearchResults(newestID);
-  const tweets = apiRes.statuses.filter(isValid).map(buildTweetObject);
+  const tweets = await Promise.all(apiRes.statuses.filter(isValid).map(buildTweetObject));
 
   const tweetsFetched = apiRes.statuses.length;
   const tweetsDiscarded = apiRes.statuses.length - tweets.length;

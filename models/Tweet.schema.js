@@ -7,6 +7,7 @@ const schema = new mongoose.Schema(
     roles: [String],
 
     email: [String],
+    urls: [String],
     
     created_by: String,
     created_on: Number,
