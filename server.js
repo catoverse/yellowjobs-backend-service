@@ -21,7 +21,7 @@ const swaggerOptions = {
   swaggerDefinition: {
     info: {
       version: "1.0.0",
-      title: "ellowJobs API",
+      title: "YellowJobs API",
       description: "YellowJobs API Information",
       contact: {
         name: "API Support",
