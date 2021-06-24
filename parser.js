@@ -6,7 +6,7 @@ const keywords = Object.values(rolesRaw).map(r => Object.entries(r).map(([role, 
 const normalize = (text) => {
   return text
     .toLowerCase()
-    .replace(/\s+|\?|!|&|\.|,|:|\'|\"|\/|\(|\)|-/g, "");
+    .replace(/\W/g, "");
 };
 /*
 const find = (text, values) => {
@@ -45,11 +45,7 @@ const parsePhoneNumbers = (text) => {
 };
 */
 const parseURLs = (text) => {
-  return Promise.all((text.match(/https:\/\/t.co\/\w{10}/g) || []).map(async url => {
-    const res = await fetch(url);
-    console.log(res.url);
-    return res.url;
-  }));
+  return Promise.all((text.match(/https:\/\/t.co\/\w{10}/g) || []).map(async url => (await fetch(url)).url));
 };
 
 const parseJobType = (text) => {
@@ -70,7 +66,7 @@ const needManualVerification = (text) => {
 };
 
 const parseRoles = (text) => {
-  let words = text.toLowerCase().split(/\s+|\?|!|&|\.|,|:|\'|\"|\/|\(|\)|-/g);
+  let words = text.toLowerCase().split(/\W/g);
   let nextWords = [];
   const roles = new Set;
   
@@ -102,8 +98,9 @@ const parseTweet = async (raw_text) => {
     roles: roles,
     type: parseJobType(text),
     emails: raw_text.match(emailRegex) || [],
-    urls: await parseURLs(raw_text),
-    need_manual_verification: needManualVerification(raw_text)
+    urls: [...new Set(await parseURLs(raw_text))],
+    need_manual_verification: needManualVerification(raw_text),
+    stripped_text: text
   };
 };
 

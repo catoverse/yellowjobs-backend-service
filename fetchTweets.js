@@ -24,7 +24,7 @@ const fetchSearchResults = async (newestID) => {
 
 const buildTweetObject = async (tweet) => {
   const data = await parseTweet(tweet.full_text || tweet.text);
-
+  
   const obj = {
     type: data.type,
     categories: data.categories,
@@ -32,7 +32,7 @@ const buildTweetObject = async (tweet) => {
     
     email: data.emails,
     urls: data.urls,
-    
+
     created_by: tweet.user.name,
     created_on: new Date(tweet.created_at).getTime(),
 
@@ -41,7 +41,7 @@ const buildTweetObject = async (tweet) => {
     tweet_id: tweet.id_str,
     tweet_url: `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`,
     author_id: tweet.user.id_str,
-    text: tweet.full_text,
+    text: data.stripped_text,
     likes: tweet.favorite_count,
     retweets: tweet.retweet_count,
     author_followers: tweet.user.followers_count,
@@ -61,8 +61,8 @@ const fetchTweets = async () => {
   const newestID = Number((await Meta.findOne({})).sinceId);
 
   const apiRes = await fetchSearchResults(newestID);
-  const tweets = await Promise.all(apiRes.statuses.filter(isValid).map(buildTweetObject));
-
+  const tweets = (await Promise.allSettled(apiRes.statuses.filter(isValid).map(buildTweetObject))).filter(result => result.status == "fulfilled").map(result => result.value); // discard the tweets that have any error while parsing and store the rest
+  
   const tweetsFetched = apiRes.statuses.length;
   const tweetsDiscarded = apiRes.statuses.length - tweets.length;
   const maxId = apiRes.search_metadata.max_id;

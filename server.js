@@ -46,7 +46,7 @@ app.use("/api", apiRoutes);
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
-  console.log("✅ Databse Connected!");
+  console.log("✅ Database Connected!");
 
   fetchAndSaveTweets();
 
