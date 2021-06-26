@@ -32,17 +32,17 @@ router.get("/", async (req, res) => {
  *               type: integer
  *               description: number of tweets to offset the results by
  *             - in: query
- *               name: role
- *               type: string
- *               description: role to query for
- *             - in: query
  *               name: type
  *               type: string
- *               description: fulltime/parttime/internship
+ *               description: fulltime/parttime/internship/freelance
+ *             - in: query
+ *               name: role
+ *               type: string
+ *               description: role to filter
  *             - in: query
  *               name: category
  *               type: string
- *               description: category to query for
+ *               description: job category to filter
  *             - in: query
  *               name: q
  *               type: string
