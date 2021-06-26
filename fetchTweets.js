@@ -59,19 +59,7 @@ const fetchTweets = async () => {
   const newestID = Number((await Meta.findOne({})).sinceId);
 
   const apiRes = await fetchSearchResults(newestID);
-  const tweetsRaw = apiRes.statuses.filter(isValid);
-  let tweets = [];
-  let proms = [];
-
-  for(let tweet of tweetsRaw){
-    proms.push(buildTweetObject(tweet));
-    
-    if(proms.length == 10){
-      tweets = tweets.concat(await Promise.allSettled(proms)).filter(result => result.status == "fulfilled").map(result => result.value);
-      proms = [];
-    }
-  }
-  tweets = tweets.concat(await Promise.allSettled(proms)).filter(result => result.status == "fulfilled").map(result => result.value);
+  const tweets = (await Promise.allSettled(apiRes.statuses.filter(isValid).map(buildTweetObject))).filter(result => result.status == "fulfilled").map(result => result.value);
   
   const tweetsFetched = apiRes.statuses.length;
   const tweetsDiscarded = apiRes.statuses.length - tweets.length;
@@ -85,7 +73,7 @@ const fetchTweets = async () => {
   console.log("\n### Tweet fetch cycle summary ###");
   console.log("Tweets fetched from API:", tweetsFetched);
   console.log("Tweets discarded by filters:", tweetsDiscarded);
-  console.log("Total number of tweets TO BE written in DB:", tweets.length);
+  console.log("Total number of tweets to be written in DB:", tweets.length);
   console.log();
 
   // analytics.track("fetch tweet cycle summary",{
