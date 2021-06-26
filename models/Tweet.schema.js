@@ -19,6 +19,7 @@ const schema = new mongoose.Schema(
     author_id: String,
     text: String,
     likes: Number,
+    tweet_ast: mongoose.Schema.Types.Mixed,
     retweets: Number,
     author_followers: Number,
   },

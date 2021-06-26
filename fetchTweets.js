@@ -1,5 +1,6 @@
 const fetch = require("node-fetch");
 const { parseTweet } = require("./parser");
+const { fetchTweetAst } = require("static-tweets");
 const Tweet = require("./models/Tweet.schema");
 const Meta = require("./models/Meta.schema");
 
@@ -21,7 +22,7 @@ const fetchSearchResults = async (newestID) => {
 };
 
 const buildTweetObject = async (tweet) => {
-  const data = await parseTweet(tweet.full_text || tweet.text);
+  const [data, tweetAst] = await Promise.all([parseTweet(tweet.full_text || tweet.text), fetchTweetAst(tweet.id_str)]);
   
   const obj = {
     type: data.type,
@@ -42,6 +43,7 @@ const buildTweetObject = async (tweet) => {
     text: data.stripped_text,
     likes: tweet.favorite_count,
     retweets: tweet.retweet_count,
+    tweet_ast: tweetAst,
     author_followers: tweet.user.followers_count,
   };
 
