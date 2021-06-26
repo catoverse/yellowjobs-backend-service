@@ -1,7 +1,6 @@
 {
-  "name": "covid-army-backend",
+  "name": "yellowjobs-backend",
   "version": "1.0.0",
-  "description": "A real time consolidated list of resources on COVID",
   "main": "server.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node server.js",
@@ -9,14 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cato-tv/covid.army-backend.git"
+    "url": "git+https://github.com/catoverse/yellowjobs-backend.git"
   },
-  "author": "COVID Army",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cato-tv/covid.army-backend/issues"
+    "url": "https://github.com/catoverse/yellowjobs-backend/issues"
   },
-  "homepage": "https://github.com/cato-tv/covid.army-backend#readme",
+  "homepage": "https://github.com/catoverse/yellowjobs-backend#readme",
   "dependencies": {
     "analytics": "^0.7.5",
     "cors": "^2.8.5",
