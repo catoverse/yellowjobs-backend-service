@@ -61,7 +61,7 @@ const fetchTweets = async () => {
   const apiRes = await fetchSearchResults(newestID);
   const tweetsRaw = apiRes.statuses.filter(isValid);
   let tweets = [];
-  const proms = [];
+  let proms = [];
 
   for(let tweet of tweetsRaw){
     proms.push(buildTweetObject(tweet));
