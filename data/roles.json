@@ -176,8 +176,7 @@
 		"BioTech": ["biotech"],
 		"Ionic": ["ionic"],
 		"ELK": ["elk"],
-		"TDD": ["tdd"],
-		"Design": ["design"]
+		"TDD": ["tdd"]
 	},
 	"Design": {
 		"UI Designer": ["uiesign"],
