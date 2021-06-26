@@ -13,7 +13,7 @@ const parseRolesFromQuery = (q) => {
   }
 
   const nextText = [];
-  const roles = [];
+  const roles = new Set;
 
   do {
     nextText.length = 0;
@@ -21,7 +21,7 @@ const parseRolesFromQuery = (q) => {
       const role = keywords[word];
       
       if(role){
-        roles.push(role);
+        roles.add(role);
       } else {
         nextText.push(word);
       }
@@ -33,7 +33,7 @@ const parseRolesFromQuery = (q) => {
   } while(nextText.length > 1);
   
   console.log(nextText); // this is the remains of the query string for which we were not able to find the keyword mapping, storing it can be helpful for insights on what keywords we should add
-  return roles;
+  return [...roles];
 };
 
 exports.findAll = async (req, res) => {

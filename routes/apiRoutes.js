@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
  * /api/tweets:
  *     get:
  *         summary: Retrieve a list tweets.
- *         description: Retrive a list of 'limit' number of recent tweets, for all locations and resources
+ *         description: Retrive a list of 'limit' number of recent tweets based on the query filters
  *         parameters:
  *             - in: query
  *               name: limit
