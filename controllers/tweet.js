@@ -27,7 +27,7 @@ const parseRolesFromQuery = (q) => {
       }
     }
     text.length = 0;
-    for(let i = 0; i < nextText.length - 1; ++i){
+    for(let i = 0; i < nextText.length - 1; i += 2){
       text.push(nextText[i]+nextText[i+1]);
     }
   } while(nextText.length > 1);

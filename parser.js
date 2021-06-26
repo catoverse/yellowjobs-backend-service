@@ -80,7 +80,7 @@ const parseRoles = (text) => {
       nextWords.push(word);
     }
     words = [];
-    for(let i = 0; i < nextWords.length - 1; ++i){
+    for(let i = 0; i < nextWords.length - 1; i += 2){
       words.push(nextWords[i] + nextWords[i+1]);
     }
   } while(nextWords.length > 1);

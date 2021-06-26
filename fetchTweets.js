@@ -1,7 +1,5 @@
 const fetch = require("node-fetch");
-
 const { parseTweet } = require("./parser");
-
 const Tweet = require("./models/Tweet.schema");
 const Meta = require("./models/Meta.schema");
 
