@@ -4,7 +4,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/tweets:
+ * /api/categories:
  *     get:
  *         summary: Retrieve a list categories.
  *         description: Retrive a list of categories sorted by the number of visits

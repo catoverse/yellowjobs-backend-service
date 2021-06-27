@@ -33,8 +33,7 @@ const swaggerDocs = swaggerJsDoc({
       servers: ["http://yellowjobs.org"],
     },
   },
-  // ['.routes/*.js']
-  apis: ["routes/apiRoutes.js", "routes/meta.js", "routes/volunteerRoutes.js"],
+  apis: ["routes/*.js"]
 });
 
 app.use(morgan(process.env.NODE_ENV == "production" ? "common" : "dev"));
