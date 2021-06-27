@@ -36,32 +36,25 @@ const parseRolesFromQuery = (q) => {
   return [...roles];
 };
 
-exports.findAll = async (req, res) => {
-  try {
-    const { limit = 20, offset = 0, category, role, type, q } = req.query;
-    const mongoQuery = { need_manual_verification: false };
+exports.findAll = async ({ limit = 20, offset = 0, category, role, type, q }) => {
+  const mongoQuery = { need_manual_verification: false };
 
-    if(type) mongoQuery.type = type.toLowerCase();
-    if(category) mongoQuery.categories = category.toLowerCase().split("-").filter(_=>_).map(a => a[0].toUpperCase() + a.substring(1, a.length)).join(" ");
+  if(type) mongoQuery.type = type.toLowerCase();
+  if(category) mongoQuery.categories = category.toLowerCase().split("-").filter(_=>_).map(a => a[0].toUpperCase() + a.substring(1, a.length)).join(" ");
 
-    if(role) mongoQuery.roles = role.toLowerCase().split("-").filter(_=>_).map(a => a[0].toUpperCase() + a.substring(1, a.length)).join(" ");
-    
-    if(q) {
-      const or = parseRolesFromQuery(q).map(role => ({ roles: role }));
-    
-      if(or.length > 0){
-        mongoQuery.$or = or;
-      }
+  if(role) mongoQuery.roles = role.toLowerCase().split("-").filter(_=>_).map(a => a[0].toUpperCase() + a.substring(1, a.length)).join(" ");
+  
+  if(q) {
+    const or = parseRolesFromQuery(q).map(role => ({ roles: role }));
+  
+    if(or.length > 0){
+      mongoQuery.$or = or;
     }
-
-    res.send(
-      (await Tweet.find(mongoQuery, null, {
-        limit: Number(limit),
-        skip: Number(offset),
-        sort: { created_on: -1 },
-      }).exec()) || []
-    );
-  } catch (error) {
-    res.send({ error: error.message });
   }
+
+  return (await Tweet.find(mongoQuery, null, {
+    limit: Number(limit),
+    skip: Number(offset),
+    sort: { created_on: -1 },
+  }).exec()) || [];
 };

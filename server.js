@@ -9,15 +9,18 @@ const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
 const { fetchAndSaveTweets } = require("./fetchTweets");
-const apiRoutes = require("./routes/apiRoutes");
-//const meta = require("./routes/meta");
+const categoryController = require("./controllers/category");
+
+const categoriesRoutes = require("./routes/categories");
+const tweetsRoutes = require("./routes/tweets");
+const metaRoutes = require("./routes/meta");
 
 const app = express();
 
 const DB_URL = process.env.MONGO_URI;
 const PORT = process.env.PORT || 4000;
 
-const swaggerOptions = {
+const swaggerDocs = swaggerJsDoc({
   swaggerDefinition: {
     info: {
       version: "1.0.0",
@@ -32,8 +35,7 @@ const swaggerOptions = {
   },
   // ['.routes/*.js']
   apis: ["routes/apiRoutes.js", "routes/meta.js", "routes/volunteerRoutes.js"],
-};
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
+});
 
 app.use(morgan(process.env.NODE_ENV == "production" ? "common" : "dev"));
 app.use(express.json());
@@ -41,8 +43,9 @@ app.use(express.json());
 app.options("/volunteer/*", cors());
 app.use(cors());
 
-app.use("/api", apiRoutes);
-// app.use("/api", meta);
+app.use("/api", tweetsRoutes);
+app.use("/api", categoriesRoutes);
+app.use("/api", metaRoutes);
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
@@ -65,4 +68,7 @@ mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).th
   app.listen(PORT, "0.0.0.0", () => {
     console.log("🚀 Server Ready!");
   });
+  process.on("beforeExit", () => {
+    categoryController.flush();
+  })
 });

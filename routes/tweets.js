@@ -1,20 +1,7 @@
 const express = require("express");
+const { incVisits } = require("../controllers/category");
 const tweetController = require("../controllers/tweet");
 const router = express.Router();
-
-/**
- * @swagger
- * /api/:
- *     get:
- *         summary: Simple test endpoint
- *         description: Simple test endpoint
- *         responses:
- *             200:
- *                 description: A successful response
- */
-router.get("/", async (req, res) => {
-  res.send("This is the API endpoint");
-});
 
 /**
  * @swagger
@@ -49,8 +36,30 @@ router.get("/", async (req, res) => {
  *               description: keyword search
  *         responses:
  *             200:
- *                 description: A list of n number of resource objects
+ *                 description: A list of tweet objects
  */
-router.get("/tweets", tweetController.findAll);
+router.get("/tweets", async (req, res) => {
+  let tweets = null;
+
+  try {
+    tweets = await tweetController.findAll(req.query)
+    res.send(tweets); // send response before we update the visits, no problem even if the update fails after the response has been sent
+  } catch(error){
+    res.send({ error: error.message });
+  }
+  
+  try {
+    const categories = new Set;
+
+    for(let tweet of tweets){
+      for(let category of tweet.categories){
+        categories.add(category);
+      }
+    }
+    await Promise.all([...categories].map(incVisits));
+  } catch(error){
+    console.error(error);
+  };
+});
 
 module.exports = router;
