@@ -1,299 +1,1033 @@
 {
 	"Tech": {
-		"Digital Nomad": ["digitalnomad"],
-		"Software Developer": ["dev"],
-		"Engineer": ["engineer"],
-		"JavaScript": ["javascript"],
-		"Ruby": ["ruby"],
-		"Full Stack": ["fullstack"],
-		"DevOps": ["devops"],
-		"NodeJS": ["node"],
-		"Frontend": ["frontend"],
-		"Backend": ["backend"],
-		"PHP": ["php"],
-		"Web Dev": ["webdev"],
-		"iOS": ["ios"],
-		"Android": ["android"],
-		"C": ["c"],
-		"C++": ["c++"],
-		"MeteorJS": ["meteor"],
-		"Mobile": ["mobile"],
-		"ReactJS": ["react"],
-		"CSS": ["css"],
-		"HTML": ["html"],
-		"Java": ["java"],
-		"AngularJS": ["angular"],
-		"Python": ["python"],
-		"Architecture": ["architecture"],
-		"Golang": ["golang", "go"],
-		"Cloud": ["cloud"],
-		"Testing": ["testing"],
-		"SQL": ["sql"],
-		"Teaching": ["teaching"],
-		"Linux": ["linux"],
-		"JQuery": ["jquery"],
-		"Education": ["education"],
-		"Data Science": ["datascience"],
-		"Wordpress": ["wordpress"],
-		"Excel": ["excel"],
-		"MongoDB": ["mongo"],
-		"Rails": ["rails"],
-		"Scala": ["scala"],
-		"SaaS": ["saas"],
-		"Internship": ["internship"],
-		"AWS": ["aws"],
-		"React Native": ["reactnative"],
-		"Stats": ["stats"],
-		"Game Dev": ["gamedev"],
-		"SEO": ["seo"],
-		"ML": ["ml", "machinelearning"],
-		"Postgres": ["postgres"],
-		"Elasticsearch": ["elasticsearch"],
-		".NET": [".net", "dotnet"],
-		"EmberJS": ["emberjs"],
-		"Tech Lead": ["techlead"],
-		"Docker": ["docker", "containers"],
-		"Typescript": ["typescript"],
-		"Laravel": ["laravel"],
-		"Database Administration": ["dba", "database"],
-		"Big Data": ["bigdata"],
-		"GraphQL": ["graphql"],
-		"Swift": ["Swift"],
-		"Photoshop": ["photoshop"],
-		"Objective C": ["objectivec", "objc"],
-		"Ruby on Rails": ["rubyonrails"],
-		"Apache": ["apache"],
-		"Virtual Assistant": ["virtualassistant"],
-		"Cassandra": ["cassandra"],
-		"Kubernetes": ["kubernetes"],
-		"VueJS": ["vue"],
-		"LAMP": ["lamp"],
-		"C#": ["c#", "csharp"],
-		"Developer": ["developer"],
-		"Embedded": ["embedded"],
-		"Clojure": ["clojure"],
-		"Git": ["git"],
-		"Telecom": ["telecom"],
-		"Illustrator": ["illustrator"],
-		"Heroku": ["heroku"],
-		"Nginx": ["nginx"],
-		"Y Combinator": ["ycombinator", "yc"],
-		"Perl": ["perl"],
-		"MySQL": ["mysql"],
-		"UX": ["ux"],
-		"VFX": ["vfx"],
-		"Startup": ["startup"],
-		"Django": ["django"],
-		"Redux": ["redux"],
-		"Crypto": ["crypto"],
-		"MacOS": ["mac"],
-		"Serverless": ["serverless"],
-		"Math": ["math"],
-		"Redis": ["redis"],
-		"PostgreSQL": ["postgre"],
-		"Software": ["software"],
-		"Microsoft": ["microsoft"],
-		"Haskell": ["haskell"],
-		"Shopify": ["shopify"],
-		"Amazon": ["amazon"],
-		"Kotlin": ["kotlin"],
-		"B2B": ["b2b"],
-		"Bitcoin": ["bitcoin"],
-		"Fintech": ["fintech"],
-		"Elixir": ["elixir"],
-		"Infrastructure": ["infra"],
-		"Microservices": ["microservices"],
-		"Bootstrap": ["bootstrap"],
-		"Blockchain": ["blockchain"],
-		"Ethereum": ["ethereum"],
-		"Agile": ["agile"],
-		"Firebase": ["firebase"],
-		"Lisp": ["lisp"],
-		"Ansible": ["ansible"],
-		"Erlang": ["erlang"],
-		"Architect": ["architect"],
-		"Robotics": ["robotics"],
-		"Open Source": ["opensource"],
-		"Virtual Reality": ["vr", "virtualreality"],
-		"Azure": ["azure"],
-		"Jira": ["jira"],
-		"Security": ["security"],
-		"NoSQL": ["nosql"],
-		"Spark": ["spark"],
-		"Spring": ["spring"],
-		"Healthcare": ["healthcare"],
-		"CouchDB": ["couchdb"],
-		"Flutter": ["flutter"],
-		"Edtech": ["edtech"],
-		"Unity": ["unity"],
-		"GCP": ["gcp", "googlecloud"],
-		"Kafka": ["kafka"],
-		"Apollo": ["apollo"],
-		"Airflow": ["airflow"],
-		"REST": ["rest"],
-		"Research": ["research"],
-		"Freelance": ["freelance"],
-		"Solidity": ["solidity"],
-		"IT": ["it"],
-		"ESports": ["esports"],
-		"Scheme": ["scheme"],
-		"AI": ["ai"],
-		"Test Automation": ["testautomation"],
-		"RabbitMQ": ["rabbitmq"],
-		"Flask": ["flask"],
-		"CI/CD": ["ci", "cd"],
-		"Unix": ["unix"],
-		"magento": ["magento"],
-		"Net Core": ["netcore"],
-		"Jenkins": ["jenkins"],
-		"SASS": ["scss"],
-		"Grafana": ["grafana"],
-		"VoIP": ["voip"],
-		"Assembly": ["assembly"],
-		"Monitoring": ["monitoring"],
-		"Matlab": ["matlab"],
-		"ETL": ["etl"],
-		"Selenium": ["selenium"],
-		"Distributed Systems": ["distributedsystem"],
-		"Smart Contracts": ["smartcontracts"],
-		"ERP": ["erp"],
-		"NextJS": ["nextjs"],
-		"Data Analysis": ["dataanalysis"],
-		"Lambda": ["lambda"],
-		"Functional Programming": ["functional"],
-		"Pandas": ["pandas"],
-		"Phoenix": ["phoenix"],
-		"Figma": ["figma"],
-		"Rust": ["rust"],
-		"Snowflake": ["snowflake"],
-		"OOP": ["oop"],
-		"Algorithms": ["algorithms"],
-		"Tailwind": ["tailwind"],
-		"Programming": ["programming"],
-		"Site Reliability": ["reliability"],
-		"Express": ["express"],
-		"Gitlab": ["gitlab"],
-		"BioTech": ["biotech"],
-		"Ionic": ["ionic"],
-		"ELK": ["elk"],
-		"TDD": ["tdd"]
+		"Digital Nomad": [
+			"digitalnomad"
+		],
+		"Webflow": [
+			"webflow"
+		],
+		"Software Developer": [
+			"dev"
+		],
+		"Engineer": [
+			"engineer"
+		],
+		"JavaScript": [
+			"javascript"
+		],
+		"Ruby": [
+			"ruby"
+		],
+		"Full Stack": [
+			"fullstack"
+		],
+		"DevOps": [
+			"devops"
+		],
+		"NodeJS": [
+			"node"
+		],
+		"Frontend": [
+			"frontend"
+		],
+		"Backend": [
+			"backend"
+		],
+		"PHP": [
+			"php"
+		],
+		"Web Dev": [
+			"webdev"
+		],
+		"iOS": [
+			"ios"
+		],
+		"Android": [
+			"android"
+		],
+		"C": [
+			"c"
+		],
+		"C++": [
+			"c++"
+		],
+		"MeteorJS": [
+			"meteor"
+		],
+		"Mobile": [
+			"mobile"
+		],
+		"ReactJS": [
+			"react"
+		],
+		"CSS": [
+			"css"
+		],
+		"HTML": [
+			"html"
+		],
+		"Java": [
+			"java"
+		],
+		"AngularJS": [
+			"angular"
+		],
+		"Python": [
+			"python"
+		],
+		"Architecture": [
+			"architecture"
+		],
+		"Golang": [
+			"golang",
+			"go"
+		],
+		"Cloud": [
+			"cloud"
+		],
+		"Testing": [
+			"testing"
+		],
+		"SQL": [
+			"sql"
+		],
+		"Teaching": [
+			"teaching"
+		],
+		"Linux": [
+			"linux"
+		],
+		"JQuery": [
+			"jquery"
+		],
+		"Education": [
+			"education"
+		],
+		"Data Science": [
+			"datascience"
+		],
+		"Wordpress": [
+			"wordpress"
+		],
+		"MongoDB": [
+			"mongo"
+		],
+		"Rails": [
+			"rails"
+		],
+		"Scala": [
+			"scala"
+		],
+		"SaaS": [
+			"saas"
+		],
+		"Internship": [
+			"internship"
+		],
+		"AWS": [
+			"aws"
+		],
+		"React Native": [
+			"reactnative"
+		],
+		"Stats": [
+			"stats"
+		],
+		"Game Dev": [
+			"gamedev"
+		],
+		"SEO": [
+			"seo"
+		],
+		"ML": [
+			"ml",
+			"machinelearning"
+		],
+		"Postgres": [
+			"postgres"
+		],
+		"Elasticsearch": [
+			"elasticsearch"
+		],
+		".NET": [
+			".net",
+			"dotnet"
+		],
+		"EmberJS": [
+			"emberjs"
+		],
+		"Tech Lead": [
+			"techlead"
+		],
+		"Docker": [
+			"docker",
+			"containers"
+		],
+		"Typescript": [
+			"typescript"
+		],
+		"Laravel": [
+			"laravel"
+		],
+		"Database Administration": [
+			"dba",
+			"database"
+		],
+		"Big Data": [
+			"bigdata"
+		],
+		"GraphQL": [
+			"graphql"
+		],
+		"Swift": [
+			"Swift"
+		],
+		"Photoshop": [
+			"photoshop"
+		],
+		"Objective C": [
+			"objectivec",
+			"objc"
+		],
+		"Ruby on Rails": [
+			"rubyonrails"
+		],
+		"Apache": [
+			"apache"
+		],
+		"Virtual Assistant": [
+			"virtualassistant"
+		],
+		"Cassandra": [
+			"cassandra"
+		],
+		"Kubernetes": [
+			"kubernetes"
+		],
+		"VueJS": [
+			"vue"
+		],
+		"LAMP": [
+			"lamp"
+		],
+		"C#": [
+			"c#",
+			"csharp"
+		],
+		"Developer": [
+			"developer"
+		],
+		"Embedded": [
+			"embedded"
+		],
+		"Clojure": [
+			"clojure"
+		],
+		"Git": [
+			"git"
+		],
+		"Telecom": [
+			"telecom"
+		],
+		"Illustrator": [
+			"illustrator"
+		],
+		"Heroku": [
+			"heroku"
+		],
+		"Nginx": [
+			"nginx"
+		],
+		"Y Combinator": [
+			"ycombinator",
+			"yc"
+		],
+		"Perl": [
+			"perl"
+		],
+		"MySQL": [
+			"mysql"
+		],
+		"UX": [
+			"ux"
+		],
+		"VFX": [
+			"vfx"
+		],
+		"Startup": [
+			"startup"
+		],
+		"Django": [
+			"django"
+		],
+		"Redux": [
+			"redux"
+		],
+		"Crypto": [
+			"crypto"
+		],
+		"MacOS": [
+			"mac"
+		],
+		"Serverless": [
+			"serverless"
+		],
+		"Math": [
+			"math"
+		],
+		"Redis": [
+			"redis"
+		],
+		"PostgreSQL": [
+			"postgre"
+		],
+		"Software": [
+			"software"
+		],
+		"Microsoft": [
+			"microsoft"
+		],
+		"Haskell": [
+			"haskell"
+		],
+		"Shopify": [
+			"shopify"
+		],
+		"Amazon": [
+			"amazon"
+		],
+		"Kotlin": [
+			"kotlin"
+		],
+		"B2B": [
+			"b2b"
+		],
+		"Bitcoin": [
+			"bitcoin"
+		],
+		"Fintech": [
+			"fintech"
+		],
+		"Elixir": [
+			"elixir"
+		],
+		"Infrastructure": [
+			"infra"
+		],
+		"Microservices": [
+			"microservices"
+		],
+		"Bootstrap": [
+			"bootstrap"
+		],
+		"Blockchain": [
+			"blockchain"
+		],
+		"Ethereum": [
+			"ethereum"
+		],
+		"Agile": [
+			"agile"
+		],
+		"Firebase": [
+			"firebase"
+		],
+		"Lisp": [
+			"lisp"
+		],
+		"Ansible": [
+			"ansible"
+		],
+		"Erlang": [
+			"erlang"
+		],
+		"Architect": [
+			"architect"
+		],
+		"Robotics": [
+			"robotics"
+		],
+		"Open Source": [
+			"opensource"
+		],
+		"Virtual Reality": [
+			"vr",
+			"virtualreality"
+		],
+		"Azure": [
+			"azure"
+		],
+		"Jira": [
+			"jira"
+		],
+		"Security": [
+			"security"
+		],
+		"NoSQL": [
+			"nosql"
+		],
+		"Spark": [
+			"spark"
+		],
+		"Spring": [
+			"spring"
+		],
+		"Healthcare": [
+			"healthcare"
+		],
+		"CouchDB": [
+			"couchdb"
+		],
+		"Flutter": [
+			"flutter"
+		],
+		"Edtech": [
+			"edtech"
+		],
+		"Unity": [
+			"unity"
+		],
+		"GCP": [
+			"gcp",
+			"googlecloud"
+		],
+		"Kafka": [
+			"kafka"
+		],
+		"Apollo": [
+			"apollo"
+		],
+		"Airflow": [
+			"airflow"
+		],
+		"REST": [
+			"rest"
+		],
+		"Research": [
+			"research"
+		],
+		"Freelance": [
+			"freelance"
+		],
+		"Solidity": [
+			"solidity"
+		],
+		"IT": [
+			"it"
+		],
+		"ESports": [
+			"esports"
+		],
+		"Scheme": [
+			"scheme"
+		],
+		"AI": [
+			"ai"
+		],
+		"Test Automation": [
+			"testautomation"
+		],
+		"RabbitMQ": [
+			"rabbitmq"
+		],
+		"Flask": [
+			"flask"
+		],
+		"CI/CD": [
+			"ci",
+			"cd"
+		],
+		"Unix": [
+			"unix"
+		],
+		"magento": [
+			"magento"
+		],
+		"Net Core": [
+			"netcore"
+		],
+		"Jenkins": [
+			"jenkins"
+		],
+		"SASS": [
+			"scss"
+		],
+		"Grafana": [
+			"grafana"
+		],
+		"VoIP": [
+			"voip"
+		],
+		"Assembly": [
+			"assembly"
+		],
+		"Monitoring": [
+			"monitoring"
+		],
+		"Matlab": [
+			"matlab"
+		],
+		"ETL": [
+			"etl"
+		],
+		"Selenium": [
+			"selenium"
+		],
+		"Distributed Systems": [
+			"distributedsystem"
+		],
+		"Smart Contracts": [
+			"smartcontracts"
+		],
+		"ERP": [
+			"erp"
+		],
+		"NextJS": [
+			"nextjs"
+		],
+		"Data Analysis": [
+			"dataanalysis"
+		],
+		"Lambda": [
+			"lambda"
+		],
+		"Functional Programming": [
+			"functional"
+		],
+		"Pandas": [
+			"pandas"
+		],
+		"Phoenix": [
+			"phoenix"
+		],
+		"Figma": [
+			"figma"
+		],
+		"Rust": [
+			"rust"
+		],
+		"Snowflake": [
+			"snowflake"
+		],
+		"OOP": [
+			"oop"
+		],
+		"Algorithms": [
+			"algorithms"
+		],
+		"Tailwind": [
+			"tailwind"
+		],
+		"Programming": [
+			"programming"
+		],
+		"Site Reliability": [
+			"reliability"
+		],
+		"Express": [
+			"express"
+		],
+		"Gitlab": [
+			"gitlab"
+		],
+		"Ionic": [
+			"ionic"
+		],
+		"ELK": [
+			"elk"
+		],
+		"TDD": [
+			"tdd"
+		]
 	},
 	"Design": {
-		"UI Designer": ["uiesign"],
-		"UX Designer": ["uxdesign"],
-		"UI/UX Designer": ["uiux"],
-		"Product Designer": ["productdesign"],
-		"Graphic Designer": ["graphicdesign"],
-		"Motion Designer": ["motiondesign"],
-		"Animation": ["animation"],
-		"Sound Designer": ["sounddesign"],
-		"Visual Designer": ["visualdesign"],
-		"Brand Designer": ["branddesign"],
-		"UX Researcher / Analyst": ["uxresearch", "uxanalyst"],
-		"Interaction Designer": ["interactiondesign"],
-		"UX Writer / Copywriter": ["copywriter", "uxwriter"],
-		"Voice Designer": ["voicedesign"],
-		"UI Lead": ["uilead"],
-		"UX Lead": ["uxlead"],
-		"Product Lead": ["'productlead"],
-		"Design Lead": ["designlead"],
-		"Design Director": ["designdirecter"],
-		"Content Strategist": ["contentstrategist"],
-		"UX Strategist": ["uxstrategist"],
-		"Information Architect": ["infoarchitect", "informationarchitect"],
-		"3d Modelling": ["3dmodelling"],
-		"Video Editor": ["videoeditor"]
+		"UI Designer": [
+			"uiesign"
+		],
+		"UX Designer": [
+			"uxdesign"
+		],
+		"UI/UX Designer": [
+			"uiux"
+		],
+		"Product Designer": [
+			"productdesign"
+		],
+		"Graphic Designer": [
+			"graphicdesign"
+		],
+		"Motion Designer": [
+			"motiondesign"
+		],
+		"Animation": [
+			"animation"
+		],
+		"Sound Designer": [
+			"sounddesign"
+		],
+		"Visual Designer": [
+			"visualdesign"
+		],
+		"Brand Designer": [
+			"branddesign"
+		],
+		"UX Researcher / Analyst": [
+			"uxresearch",
+			"uxanalyst"
+		],
+		"Interaction Designer": [
+			"interactiondesign"
+		],
+		"UX Writer / Copywriter": [
+			"copywriter",
+			"uxwriter"
+		],
+		"Voice Designer": [
+			"voicedesign"
+		],
+		"UI Lead": [
+			"uilead"
+		],
+		"UX Lead": [
+			"uxlead"
+		],
+		"Product Lead": [
+			"'productlead"
+		],
+		"Design Lead": [
+			"designlead"
+		],
+		"Design Director": [
+			"designdirecter"
+		],
+		"Content Strategist": [
+			"contentstrategist"
+		],
+		"UX Strategist": [
+			"uxstrategist"
+		],
+		"Information Architect": [
+			"infoarchitect",
+			"informationarchitect"
+		],
+		"3d Modelling": [
+			"3dmodelling"
+		],
+		"Video Editor": [
+			"videoeditor"
+		],
+		"Photoshop": [
+			"photoshop"
+		]
+	},
+	"Management": {
+		"CEO": [
+			"ceo"
+		],
+		"Ops": [
+			"ops"
+		],
+		"Management": [
+			"manage"
+		],
+		"Community Management": [
+			"communitymanagement"
+		],
+		"Director": [
+			"director"
+		],
+		"Project Manager": [
+			"projectmanager"
+		],
+		"CXO": [
+			"cxo"
+		],
+		"COO": [
+			"coo"
+		]
+	},
+	"Operations": {
+		"Operations": [
+			"ops",
+			"operations",
+			"coo"
+		],
+		"Supervisor": [
+			"supervisor"
+		]
+	},
+	"Product": {
+		"Product": [
+			"product"
+		]
+	},
+	"Sales": {
+		"Product": [
+			"product"
+		],
+		"Growth": [
+			"growth"
+		],
+		"Sales": [
+			"sales"
+		]
+	},
+	"Content": {
+		"SEO": [
+			"seo"
+		],
+		"Youtuber": [
+			"youtuber"
+		],
+		"content creator": [
+			"contentcreator",
+			"creator"
+		],
+		"influencer": [
+			"influencer",
+			"instagrammer"
+		],
+		"Blogger": [
+			"blogger"
+		],
+		"Media": [
+			"media"
+		],
+		"Post": [
+			"post"
+		]
+	},
+	"Marketing": {
+		"SEO": [
+			"seo"
+		],
+		"Digital Marketing": [
+			"digitalmarketing"
+		],
+		"ads": [
+			"ads",
+			"advertising"
+		],
+		"Social Media Marketing": [
+			"socialmediamarketing"
+		],
+		"Growth": [
+			"growth"
+		],
+		"Sales": [
+			"sales"
+		],
+		"Brand": [
+			"brand"
+		],
+		"Content": [
+			"content"
+		],
+		"Internet marketing": [
+			"internetmarketing"
+		],
+		"Email marketer": [
+			"emailmarketer",
+			"email"
+		],
+		"Campaign manager": [
+			"campaignmanager",
+			"campaign"
+		],
+		"Media Relations": [
+			"mediarelations",
+			"mediarelation"
+		],
+		"Public relations": [
+			"publicrelations",
+			"publicrelation",
+			"pr"
+		],
+		"Publicity": [
+			"publicity"
+		],
+		"Market research": [
+			"marketresearch",
+			"productresearch"
+		],
+		"Affiliate marketing": [
+			"affiliate"
+		],
+		"Channel marketing": [
+			"channelmarketing"
+		],
+		"Corporate partnership": [
+			"partnermarketingadvisor"
+		]
+	},
+	"Support": {
+		"Product": [
+			"product"
+		]
 	},
 	"Others": {
-		"Executive": ["exec"],
-		"Marketing": ["marketing"],
-		"Admin": ["admin"],
-		"Sales": ["sales"],
-		"Product Manager": ["pm", "productmanage"],
-		"Customer Support": ["support"],
-		"Quality Assurance": ["qualityassurance", "qa"],
-		"Medical": ["medical"],
-		"Ops": ["ops"],
-		"Teaching": ["teaching"],
-		"Finance": ["finance"],
-		"Education": ["education"],
-		"Analyst": ["analyst"],
-		"Ecommerce": ["ecommerce"],
-		"Social Media": ["socialmedia"],
-		"Consulting": ["consulting"],
-		"Ads": ["ads"],
-		"Recruiter": ["recruiter"],
-		"Virtual Assistant": ["virtualassistant"],
-		"Legal": ["legal"],
-		"Music": ["music"],
-		"Travel": ["travel"],
-		"English Teacher": ["englishteacher"],
-		"Product": ["product"],
-		"Growth": ["growth"],
-		"Accounting": ["accounting"],
-		"Content": ["content"],
-		"Customer Success": ["customersuccess"],
-		"Data Viz": ["dataviz"],
-		"Writing": ["writing"],
-		"Contracting": ["contracting"],
-		"HR": ["hr"],
-		"Customer Service": ["customerservice"],
-		"Management": ["manage"],
-		"Content Marketing": ["contentmarketing"],
-		"English": ["english"],
-		"Digital Marketing": ["digitalmarketing"],
-		"Speech": ["speech"],
-		"Operations": ["operations"],
-		"Business Development": ["businessdev"],
-		"Ambassador": ["ambassador"],
-		"Research": ["research"],
-		"Woocommerce": ["woocommerce"],
-		"Community": ["community"],
-		"Email Marketing": ["emailmarketing"],
-		"Controller": ["controller"],
-		"Enterprise": ["enterprise"],
-		"Sketch": ["sketch"],
-		"Monitoring": ["monitoring"],
-		"Professional Services": ["professionalservices"],
-		"Content Creation": ["contentcreation"],
-		"Helpdesk": ["helpdesk"],
-		"Community Management": ["communitymanagement"],
-		"Business": ["business"],
-		"Webmaster": ["webmaster"],
-		"Team Lead": ["teamlead"],
-		"Erp": ["erp"],
-		"Privacy": ["privacy"],
-		"Agency": ["agency"],
-		"Recruitment": ["recruitment"],
-		"Chat": ["chat"],
-		"User Research": ["userresearch"],
-		"Affiliate": ["affiliate"],
-		"Technical Writing": ["technicalwriting"],
-		"German": ["german"],
-		"CTO": ["cto"],
-		"Branding": ["branding"],
-		"Marketing Manager": ["marketingmanager"],
-		"Communication": ["communication"],
-		"CRO": ["cro"],
-		"Product Development": ["Productdevelopment"],
-		"Project Manager": ["projectmanager"],
-		"Account Manager": ["accountmanager"],
-		"Publishing": ["bublishing"],
-		"Brand": ["brand"],
-		"Editing": ["editing"],
-		"Writer": ["writer"],
-		"Chief": ["chief"],
-		"Quality": ["quality"],
-		"Contract": ["contract"],
-		"Advertising": ["advertising"],
-		"Digital Media": ["digitalmedia"],
-		"Growth Hacker": ["growthhacker"],
-		"Account Executive": ["accountexecutive"],
-		"Media": ["media"],
-		"Customer": ["customer"],
-		"Digital": ["digital"],
-		"Prometheus": ["prometheus"],
-		"Liquid": ["liquid"],
-		"Non profit": ["nonprofit"]
+		"Excel": [
+			"excel"
+		],
+		"BioTech": [
+			"biotech"
+		],
+		"Marketing": [
+			"marketing"
+		],
+		"Admin": [
+			"admin"
+		],
+		"Sales": [
+			"sales"
+		],
+		"Product Manager": [
+			"pm",
+			"productmanage"
+		],
+		"Customer Support": [
+			"support"
+		],
+		"Quality Assurance": [
+			"qualityassurance",
+			"qa"
+		],
+		"Medical": [
+			"medical"
+		],
+		"Teaching": [
+			"teaching"
+		],
+		"Finance": [
+			"finance"
+		],
+		"Education": [
+			"education"
+		],
+		"Analyst": [
+			"analyst"
+		],
+		"Ecommerce": [
+			"ecommerce"
+		],
+		"Social Media": [
+			"socialmedia"
+		],
+		"Consulting": [
+			"consulting"
+		],
+		"Ads": [
+			"ads"
+		],
+		"Recruiter": [
+			"recruiter"
+		],
+		"Virtual Assistant": [
+			"virtualassistant"
+		],
+		"Legal": [
+			"legal"
+		],
+		"Music": [
+			"music"
+		],
+		"Travel": [
+			"travel"
+		],
+		"English Teacher": [
+			"englishteacher"
+		],
+		"Growth": [
+			"growth"
+		],
+		"Accounting": [
+			"accounting"
+		],
+		"Content": [
+			"content"
+		],
+		"Customer Success": [
+			"customersuccess"
+		],
+		"Data Viz": [
+			"dataviz"
+		],
+		"Writing": [
+			"writing"
+		],
+		"Contracting": [
+			"contracting"
+		],
+		"HR": [
+			"hr"
+		],
+		"Customer Service": [
+			"customerservice"
+		],
+		"Content Marketing": [
+			"contentmarketing"
+		],
+		"English": [
+			"english"
+		],
+		"Digital Marketing": [
+			"digitalmarketing"
+		],
+		"Speech": [
+			"speech"
+		],
+		"Operations": [
+			"operations"
+		],
+		"Business Development": [
+			"businessdev"
+		],
+		"Ambassador": [
+			"ambassador"
+		],
+		"Research": [
+			"research"
+		],
+		"Woocommerce": [
+			"woocommerce"
+		],
+		"Community": [
+			"community"
+		],
+		"Email Marketing": [
+			"emailmarketing"
+		],
+		"Controller": [
+			"controller"
+		],
+		"Enterprise": [
+			"enterprise"
+		],
+		"Sketch": [
+			"sketch"
+		],
+		"Monitoring": [
+			"monitoring"
+		],
+		"Professional Services": [
+			"professionalservices"
+		],
+		"Content Creation": [
+			"contentcreation"
+		],
+		"Helpdesk": [
+			"helpdesk"
+		],
+		"Community Management": [
+			"communitymanagement"
+		],
+		"Business": [
+			"business"
+		],
+		"Webmaster": [
+			"webmaster"
+		],
+		"Team Lead": [
+			"teamlead"
+		],
+		"Erp": [
+			"erp"
+		],
+		"Privacy": [
+			"privacy"
+		],
+		"Agency": [
+			"agency"
+		],
+		"Recruitment": [
+			"recruitment"
+		],
+		"Chat": [
+			"chat"
+		],
+		"User Research": [
+			"userresearch"
+		],
+		"Affiliate": [
+			"affiliate"
+		],
+		"Technical Writing": [
+			"technicalwriting"
+		],
+		"German": [
+			"german"
+		],
+		"CTO": [
+			"cto"
+		],
+		"Branding": [
+			"branding"
+		],
+		"Marketing Manager": [
+			"marketingmanager"
+		],
+		"Communication": [
+			"communication"
+		],
+		"CRO": [
+			"cro"
+		],
+		"Product Development": [
+			"Productdevelopment"
+		],
+		"Account Manager": [
+			"accountmanager"
+		],
+		"Publishing": [
+			"bublishing"
+		],
+		"Brand": [
+			"brand"
+		],
+		"Editing": [
+			"editing"
+		],
+		"Writer": [
+			"writer"
+		],
+		"Chief": [
+			"chief"
+		],
+		"Quality": [
+			"quality"
+		],
+		"Contract": [
+			"contract"
+		],
+		"Advertising": [
+			"advertising"
+		],
+		"Digital Media": [
+			"digitalmedia"
+		],
+		"Growth Hacker": [
+			"growthhacker"
+		],
+		"Account Executive": [
+			"accountexecutive"
+		],
+		"Media": [
+			"media"
+		],
+		"Customer": [
+			"customer"
+		],
+		"Digital": [
+			"digital"
+		],
+		"Prometheus": [
+			"prometheus"
+		],
+		"Liquid": [
+			"liquid"
+		],
+		"Non profit": [
+			"nonprofit"
+		]
 	}
 }
