@@ -1,54 +1,44 @@
 const Tweet = require("../models/Tweet.schema");
-const { keywords } = require("../parser");
+const { parseRoles } = require("../parser");
 
-const parseRolesFromQuery = (q) => {
-  // Errors are to be handled in the catch block of the function calling this
-  if(q.length > 128){
-    throw new Error("Too long query.");
-  }
-  let text = q.split(/\s+/g);
-  
-  if(text.length > 32){ // Making a total 1024 (n^2) iterations in the worst case 
-    throw new Error("Too long query.");
-  }
+const normalize = (name_raw) => {
+  let name = "";
+  let state = 0;
 
-  const nextText = [];
-  const roles = new Set;
-
-  do {
-    nextText.length = 0;
-    for(let word of text){
-      const role = keywords[word];
-      
-      if(role){
-        roles.add(role);
-      } else {
-        nextText.push(word);
-      }
+  for(let c of name_raw){
+    if(state == 0){
+      name += c.toUpperCase();
+      state = 1;
+      continue;
     }
-    text.length = 0;
-    for(let i = 0; i < nextText.length - 1; i += 2){
-      text.push(nextText[i]+nextText[i+1]);
+    if(c == "-"){
+      name += " ";
+      state = 0;
+    } else {
+      name += c;
     }
-  } while(nextText.length > 1);
-  
-  console.log(nextText); // this is the remains of the query string for which we were not able to find the keyword mapping, storing it can be helpful for insights on what keywords we should add
-  return [...roles];
+  }
+  console.log(name_raw, name);
 };
 
 exports.findAll = async ({ limit = 20, offset = 0, category, role, type, q }) => {
   const mongoQuery = { need_manual_verification: false };
 
   if(type) mongoQuery.type = type.toLowerCase();
-  if(category) mongoQuery.categories = category.toLowerCase().split("-").filter(_=>_).map(a => a[0].toUpperCase() + a.substring(1, a.length)).join(" ");
+  if(category) mongoQuery.categories = normalize(category)
+  if(role) mongoQuery.roles = normalize(role);
 
-  if(role) mongoQuery.roles = role.toLowerCase().split("-").filter(_=>_).map(a => a[0].toUpperCase() + a.substring(1, a.length)).join(" ");
-  
-  if(q) {
-    const or = parseRolesFromQuery(q).map(role => ({ roles: role }));
+  if(q){
+    // Errors are to be handled in the catch block of the function calling this
+    if(q.length > 128){
+      throw new Error("Too long query.");
+    }
+    const or = parseRoles(q).map(role => ({ roles: role }));
   
     if(or.length > 0){
       mongoQuery.$or = or;
+    } else {
+      // Log the query for manual inspection for updating the keywords list if neccessary
     }
   }
 

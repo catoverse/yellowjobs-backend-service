@@ -1,3 +1,4 @@
+const { contentSecurityPolicy } = require("helmet");
 const fetch = require("node-fetch");
 const rolesRaw = require("./data/roles.json");
 const categories = Object.keys(rolesRaw).map(category => Object.keys(rolesRaw[category]).map(el => ({ [el]: category }))).flat().reduce((acc, el) => ({ ...acc, ...el }), {});
@@ -66,25 +67,25 @@ const needManualVerification = (text) => {
 };
 
 const parseRoles = (text) => {
-  let words = text.toLowerCase().split(/\W/g);
-  let nextWords = [];
-  const roles = new Set;
-  
-  do {
-    nextWords = [];
+  // Converts a text like "This is a sentence" to "thisis", "isa", "asentence", "thisisa", "isasentence", "thisisasentence" and matches with the keywords list
 
-    for(let word of words){
-      if(keywords[word]){
+  let words = text.toLowerCase().split(/\W/g).filter(_=>_);
+  let nextWords = new Array(words.length + 1).fill("");
+  const roles = new Set;
+
+  for(let i = 0; nextWords.length > 1 && i < 5; ++i){ // stop when there are no more words to join or the number of words already joined is more than 5, assuming our keyword list doesn't have any keyword that requires more than 5 whitespaces
+    nextWords.pop();
+
+    for(let j = 0; j < nextWords.length; ++j){
+      nextWords[j] += words[i+j];
+    }
+    for(const word of nextWords){
+      if(keywords[word]){ // `keywords` is a map created from roles.json for constant time lookups
         roles.add(keywords[word]);
       }
-      nextWords.push(word);
     }
-    words = [];
-    for(let i = 0; i < nextWords.length - 1; i += 2){
-      words.push(nextWords[i] + nextWords[i+1]);
-    }
-  } while(nextWords.length > 1);
-  
+  }
+  console.log(`Text: ${text}\nRoles: ${[...roles]}\n`);
   return [...roles];
 };
 
