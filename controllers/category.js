@@ -4,20 +4,22 @@ const cache = {};
 const incVisits = async (category) => {
 	cache[category] = cache[category] ? cache[category] + 1 : 1;
 
-	console.log(`${cache[category]} visits to ${category}.`);
+	// console.log(`${cache[category]} visits to ${category}.`);
 
-	if(cache[category] >= 5){
+	if(cache[category] >= 100){
 		console.log(`Commiting visits to category ${category} to the DB...`);
 
-		await Category.updateOne({ _id: category }, { $inc: { visits: cache[category] } }, { upsert: true });
-		cache[category] = 0;
+		const visits = cache[category];
+
+		await Category.updateOne({ _id: category }, { $inc: { visits } }, { upsert: true });
+		cache[category] = cache[category] - visits;
 		
 		console.log(`Commit successful.`);
 	}
 };
 
 const flush = async () => {
-	console.log("Flushing the cache to the DB...");
+	console.log("Flushing cache to the DB...");
 	console.log(cache);
 	const ops = [];
 
