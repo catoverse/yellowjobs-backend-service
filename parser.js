@@ -2,8 +2,7 @@ const { contentSecurityPolicy } = require("helmet");
 const fetch = require("node-fetch");
 const rolesRaw = require("./data/roles.json");
 
-const categories = Object.keys(rolesRaw).map(category => Object.keys(rolesRaw[category])
-.map(role => ({ role, category }))).flat().reduce((acc, { role, category }) => acc[role] ? acc[role].push(category) && acc : ({ ...acc, [role]: [category] }), {});
+const categories = Object.keys(rolesRaw).map(category => Object.keys(rolesRaw[category]).map(role => ({ role, category }))).flat().reduce((acc, { role, category }) => acc[role] ? acc[role].push(category) && acc : ({ ...acc, [role]: [category] }), {});
 
 const keywords = Object.values(rolesRaw).map(r => Object.entries(r).map(([role, keywords]) => keywords.map(keyword => ({ keyword, role })))).flat(2).reduce((acc, { keyword, role }) => acc[keyword] ? acc[keyword].push(role) && acc : ({ ...acc, [keyword]: [role] }), {});
 
