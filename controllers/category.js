@@ -1,4 +1,6 @@
 const Category = require("../models/Category.schema");
+const categories = require("../data/roles.json");
+
 const cache = {};
 
 const incVisits = async (category) => {
@@ -41,7 +43,7 @@ const flush = async () => {
 };
 
 const find = async ({ limit, offset, name }) => (
-	await (
+	(await (
 		name ?
 			Category.find({ 
 				_id: name.toLowerCase().split("-").map(e => e[0].toUpperCase() + e.substring(1, e.length)).join(" ")
@@ -51,7 +53,7 @@ const find = async ({ limit, offset, name }) => (
 				skip: Number(offset || 0),
 				sort: { visits: -1 }
 			}).exec()
-	) || []
+	) || []).map(category => ({ category: category._id, roles: Object.keys(categories[category._id]) }))
 );
 
 module.exports = {
