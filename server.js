@@ -14,6 +14,7 @@ const categoryController = require("./controllers/category");
 const categoriesRoutes = require("./routes/categories");
 const tweetsRoutes = require("./routes/tweets");
 const metaRoutes = require("./routes/meta");
+const verificationRoutes = require("./routes/verification");
 
 const app = express();
 
@@ -33,7 +34,7 @@ const swaggerDocs = swaggerJsDoc({
       servers: ["http://yellowjobs.org"],
     },
   },
-  apis: ["routes/*.js"]
+  apis: ["routes/*.js"],
 });
 
 app.use(morgan(process.env.NODE_ENV == "production" ? "common" : "dev"));
@@ -45,29 +46,33 @@ app.use(cors());
 app.use("/api", tweetsRoutes);
 app.use("/api", categoriesRoutes);
 app.use("/api", metaRoutes);
+app.use("/api", verificationRoutes);
+
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
-  console.log("✅ Database Connected!");
+mongoose
+  .connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log("✅ Database Connected!");
 
-  fetchAndSaveTweets();
+    fetchAndSaveTweets();
 
-  if (process.env.NODE_ENV === "production") {
-    cron.schedule("*/10 * * * *", async () => {
-      console.log("Fetching Tweets...");
-      console.time("fetchTweets");
-      
-      await fetchAndSaveTweets()
-    
-      console.timeEnd("fetchTweets");
-      console.log("Done Fetching Tweets!");
+    if (process.env.NODE_ENV === "production") {
+      cron.schedule("*/10 * * * *", async () => {
+        console.log("Fetching Tweets...");
+        console.time("fetchTweets");
+
+        await fetchAndSaveTweets();
+
+        console.timeEnd("fetchTweets");
+        console.log("Done Fetching Tweets!");
+      });
+    }
+
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log("🚀 Server Ready!");
     });
-  }
-
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log("🚀 Server Ready!");
+    process.on("beforeExit", () => {
+      categoryController.flush();
+    });
   });
-  process.on("beforeExit", () => {
-    categoryController.flush();
-  })
-});
