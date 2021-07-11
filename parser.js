@@ -96,7 +96,7 @@ const parseTweet = async (raw_text) => {
   const roles = parseRoles(raw_text);
 
   return {
-    categories: [... new Set(roles.map(role => categories[role]))],
+    categories: [... new Set(roles.map(role => categories[role]).flat())],
     roles: roles,
     type: parseJobType(text),
     emails: raw_text.match(emailRegex) || [],
@@ -106,4 +106,4 @@ const parseTweet = async (raw_text) => {
   };
 };
 
-module.exports = { parseTweet, keywords, categories };
+module.exports = { parseTweet, keywords, categories, parseRoles };
