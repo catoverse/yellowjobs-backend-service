@@ -75,7 +75,7 @@ const parseRoles = (text) => {
   let nextWords = new Array(words.length + 1).fill("");
   const roles = new Set;
 
-  for(let i = 0; nextWords.length > 1 && i < 5; ++i){ // stop when there are no more words to join or the number of words already joined is more than 5, assuming our keyword list doesn't have any keyword that requires more than 5 whitespaces
+  for(let i = 0; nextWords.length > 1 && i < 3; ++i){ // stop when either there are no more words to join or the number of words already joined is more than 3, assuming our keyword list doesn't have any keyword that requires more than 3 whitespaces
     nextWords.pop();
 
     for(let j = 0; j < nextWords.length; ++j){
