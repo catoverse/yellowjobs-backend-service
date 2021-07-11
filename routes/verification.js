@@ -1,7 +1,6 @@
 const express = require("express");
 const verificationController = require("../controllers/verification");
 const router = express.Router();
-
 /**
  * @swagger
  * /api/verify:
@@ -21,8 +20,8 @@ const router = express.Router();
  *               accepted:
  *                 type: string
  *         responses:
- *             200:
- *                 description: Success
+ *           200:
+ *             description: Success
  */
 router.post("/verify", async (req, res) => {
   try {
