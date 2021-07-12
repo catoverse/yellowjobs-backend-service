@@ -19,10 +19,10 @@ exports.findAll = async ({
   q,
   unverified,
 }) => {
-  //TODO:  need_manual_verification can also be approved. Show that as well
-  const mongoQuery = {
-    need_manual_verification: unverified === "true" ? "true" : "false",
-  };
+  const mongoQuery = {};
+
+  if (unverified === "true") mongoQuery.need_manual_verification = "true";
+  else mongoQuery.need_manual_verification = { $in: ["false", "approved"] };
 
   console.log(role, roles[role]);
 
