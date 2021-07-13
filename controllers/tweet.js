@@ -1,7 +1,14 @@
 const Tweet = require("../models/Tweet.schema");
 const { parseRoles } = require("../parser");
-const roles = Object.values(require("../data/roles.json")).flatMap(roles => Object.keys(roles)).map(role => ({ [role.toLowerCase().replace(/\s+/g, "")]: role })).reduce((a, b) => ({ ...a, ...b }), {});
-const categories = Object.keys(require("../data/roles.json")).map(category => ({ [category.toLowerCase().replace(/\s+/g, "")]: category })).reduce((a, b) => ({ ...a, ...b }), {});
+const roles = Object.values(require("../data/roles.json"))
+  .flatMap((roles) => Object.keys(roles))
+  .map((role) => ({ [role.toLowerCase().replace(/\s+/g, "")]: role }))
+  .reduce((a, b) => ({ ...a, ...b }), {});
+const categories = Object.keys(require("../data/roles.json"))
+  .map((category) => ({
+    [category.toLowerCase().replace(/\s+/g, "")]: category,
+  }))
+  .reduce((a, b) => ({ ...a, ...b }), {});
 
 exports.findAll = async ({ limit = 20, offset = 0, category, role, type, q }) => {
   const mongoQuery = { $and: [{ need_manual_verification: false }] };
@@ -33,9 +40,11 @@ exports.findAll = async ({ limit = 20, offset = 0, category, role, type, q }) =>
     }
   }
 
-  return (await Tweet.find(mongoQuery, null, {
-    limit: Number(limit),
-    skip: Number(offset),
-    sort: { created_on: -1 },
-  }).exec()) || [];
+  return (
+    (await Tweet.find(mongoQuery, null, {
+      limit: Number(limit),
+      skip: Number(offset),
+      sort: { created_on: -1 },
+    }).exec()) || []
+  );
 };

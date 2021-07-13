@@ -8,12 +8,16 @@ const schema = new mongoose.Schema(
 
     email: [String],
     urls: [String],
-    
+
     created_by: String,
     created_on: Number,
-    
-    need_manual_verification: Boolean,
-    
+
+    need_manual_verification: {
+      type: String,
+      enum: ["true", "false", "verified", "rejected"],
+      default: "false",
+    },
+
     tweet_id: String,
     tweet_url: String,
     author_id: String,

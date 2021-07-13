@@ -34,6 +34,12 @@ const router = express.Router();
  *               name: q
  *               type: string
  *               description: keyword search
+ *             - in: query
+ *               name: unverified
+ *               type: string
+ *               enum: [true, false]
+ *               description: set true to get unverified tweets
+ *               default: false
  *         responses:
  *             200:
  *                 description: A list of tweet objects
@@ -42,24 +48,24 @@ router.get("/tweets", async (req, res) => {
   let tweets = null;
 
   try {
-    tweets = await tweetController.findAll(req.query)
+    tweets = await tweetController.findAll(req.query);
     res.send(tweets); // send response before we update the visits, no problem even if the update fails after the response has been sent
-  } catch(error){
+  } catch (error) {
     res.send({ error: error.message });
   }
-  
-  try {
-    const categories = new Set;
 
-    for(let tweet of tweets){
-      for(let category of tweet.categories){
+  try {
+    const categories = new Set();
+
+    for (let tweet of tweets) {
+      for (let category of tweet.categories) {
         categories.add(category);
       }
     }
     await Promise.all([...categories].map(incVisits));
-  } catch(error){
+  } catch (error) {
     console.error(error);
-  };
+  }
 });
 
 module.exports = router;
