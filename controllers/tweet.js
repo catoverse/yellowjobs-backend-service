@@ -17,9 +17,10 @@ exports.findAll = async ({
   role,
   type,
   q,
+  unverified,
 }) => {
   //const mongoQuery = { $and: [{ need_manual_verification: false }] };
-  const mongoQuery = {};
+  var mongoQuery = {};
 
   if (unverified === "true")
     mongoQuery = { $and: [{ need_manual_verification: "true" }] };
