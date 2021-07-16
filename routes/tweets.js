@@ -21,12 +21,14 @@ const router = express.Router();
  *             - in: query
  *               name: type
  *               type: array
- *               items: string
+ *               items:
+ *                   type: string
  *               description: fulltime/parttime/internship/freelance
  *             - in: query
  *               name: role
  *               type: array
- *               items: string
+ *               items:
+ *                   type: string
  *               description: list of roles to filter
  *             - in: query
  *               name: category
