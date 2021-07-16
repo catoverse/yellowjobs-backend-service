@@ -10,30 +10,54 @@ const categories = Object.keys(require("../data/roles.json"))
   }))
   .reduce((a, b) => ({ ...a, ...b }), {});
 
-exports.findAll = async ({ limit = 20, offset = 0, category, role, type, q }) => {
-  const mongoQuery = { $and: [{ need_manual_verification: false }] };
+exports.findAll = async ({
+  limit = 20,
+  offset = 0,
+  category,
+  role,
+  type,
+  q,
+}) => {
+  //const mongoQuery = { $and: [{ need_manual_verification: false }] };
+  const mongoQuery = {};
 
-  if(category) mongoQuery.categories = categories[category];
-  if(type) mongoQuery.$and.push({ $or: type.toLowerCase().split(",").map(type => ({ type })) });
+  if (unverified === "true")
+    mongoQuery = { $and: [{ need_manual_verification: "true" }] };
+  else
+    mongoQuery = {
+      $and: [{ need_manual_verification: { $in: ["false", "approved"] } }],
+    };
 
-  if(role){
-    const or = role.toLowerCase().split(",").map(r => {
-      if(roles[r]){
-        return { roles: roles[r] };
-      }
-      throw new Error("Invalid role " + r);
+  if (category) mongoQuery.categories = categories[category];
+  if (type)
+    mongoQuery.$and.push({
+      $or: type
+        .toLowerCase()
+        .split(",")
+        .map((type) => ({ type })),
     });
+
+  if (role) {
+    const or = role
+      .toLowerCase()
+      .split(",")
+      .map((r) => {
+        if (roles[r]) {
+          return { roles: roles[r] };
+        }
+        throw new Error("Invalid role " + r);
+      });
 
     mongoQuery.$and.push({ $or: or });
   }
-  if(q){
+  if (q) {
     // Errors are to be handled in the catch block of the function calling this
-    if(q.length > 256){
+    if (q.length > 256) {
       throw new Error("Too long query.");
     }
-    const or = parseRoles(q).map(role => ({ roles: role }));
+    const or = parseRoles(q).map((role) => ({ roles: role }));
 
-    if(or.length > 0){
+    if (or.length > 0) {
       mongoQuery.$and.push({ $or: or });
     } else {
       // Log the query for manual inspection for updating the keywords list if neccessary
