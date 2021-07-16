@@ -152,7 +152,7 @@
 		"ELK": ["elk"],
 		"TDD": ["tdd"]
 	},
-	"Design & Product": {
+	"Design": {
 		"UI Design": ["uidesigner","figma","uidesign","uiux"],
     "Design": ["designer","designers","design"],
 		"UX Design": ["uxdesigner","uxdesigners", "ux","uxdesign"],
@@ -185,7 +185,7 @@
 		"Figma": ["figma"]
 	},
 
-	"Management & Ops": {
+	"Management": {
 		"CEO":["ceo","chiefexecutiveofficer"],
 		"Management": ["management","manager","managers"],
 		"Lawyer": ["law","legal","lawyer","lawyers"],
