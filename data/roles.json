@@ -78,7 +78,7 @@
 		"Django": ["django"],
 		"Redux": ["redux"],
 		"MacOS": ["mac", "macos"],
-    "Windows":["windows"]
+    	"Windows":["windows"],
 		"Redis": ["redis","cache"],
 		"PostgreSQL": ["postgre"],
 		"Haskell": ["haskell"],
@@ -165,7 +165,7 @@
 		"Animation": ["animation","animator","animators"],
 		"Sound Design": ["sounddesign","sounddesigner","sounddesigners"],
 		"Visual Design": ["visualdesign","visualdesigner","visualdesigners"],
-    "Presentation Design": ["presentationdesign","presentationdesigner","presentationdesigners"]
+    "Presentation Design": ["presentationdesign","presentationdesigner","presentationdesigners"],
 		"Brand Design": ["branddesigners","branddesigner","branddesigners"],
 		"UX Researcher": ["uiux","uxresearch","uxresearcher","uxresearchers", "uxanalyst","uxanalysts","ux"],
 		"Interaction Design": ["interactiondesign","interactiondesigner","interactiondesigners"],
@@ -181,7 +181,7 @@
 		"UX Strategist": ["uxstrategist","uxstrategy","uxstrategists"],
 		"Information Architect": ["infoarchitect", "infoarchitects","informationarchitect","informationarchitects"],
 		"Photoshop": ["photoshop"],
-    "Illustration": ["illustration","illustrator","illustrators"]
+    "Illustration": ["illustration","illustrator","illustrators"],
 		"Figma": ["figma"]
 	},
 
@@ -212,7 +212,7 @@
 		"Sales":["sales","salespeople","salesperson","salespersons"],
 		"Call":["call","telecallers","telecaller","coldsales"],
 		"Business Development": ["businessdevelopment","bdm"],
-		"Ambassador": ["ambassador","ambassadors"]
+		"Ambassador": ["ambassador","ambassadors"],
     "Account Manager": ["accountmanager","accountmanagement","accountmanagers"]
 	},
 
@@ -248,7 +248,7 @@
 		"Market research":["marketresearch","marketresearcher","marketresearchers"],
 		"Affiliate marketing":["affiliate"],
 		"Channel marketing":["channelmarketing"],
-		"Corporate partnership":["partnership"],
+		"Corporate partnership":["partnership"]
 	},
 
 	"Support": {
@@ -260,8 +260,8 @@
 		"Chat": ["chat"],
 		"Service": ["customerservice"],
 		"Telecalling":["telecaller","telecallers","telecalling"],
-		"Customer Success": ["customersuccess","clientsuccess"]
-    "Quality Assurance": ["qualityassurance", "qa"],
+		"Customer Success": ["customersuccess","clientsuccess"],
+    "Quality Assurance": ["qualityassurance", "qa"]
 	},
 
 	"Others": {
