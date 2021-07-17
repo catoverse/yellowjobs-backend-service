@@ -1,6 +1,12 @@
 const Category = require("../models/Category.schema");
 const categories = require("../data/roles.json");
 
+const categoriesKeywords = Object.keys(categories)
+  .map((category) => ({
+    [category.toLowerCase().replace(/\s+/g, "")]: category,
+  }))
+  .reduce((a, b) => ({ ...a, ...b }), {});
+
 const cache = {};
 
 const incVisits = async (category) => {
@@ -42,19 +48,34 @@ const flush = async () => {
 	console.log("Done flushing cache.");
 };
 
-const find = async ({ limit, offset, name }) => (
-	(await (
-		name ?
-			Category.find({ 
-				_id: name.toLowerCase().split("-").map(e => e[0].toUpperCase() + e.substring(1, e.length)).join(" ")
-			}).exec() :
-			Category.find({}, null, {
-				limit: Number(limit || 10),
-				skip: Number(offset || 0),
-				sort: { visits: -1 }
-			}).exec()
-	) || []).map(category => ({ category: category._id, roles: Object.keys(categories[category._id]) }))
-);
+const find = async ({ limit, offset, name }) => {
+
+	if(name){
+		const category = categoriesKeywords[name];
+		const roles = categories[category];
+
+		return { category, roles };
+	}
+
+	const categories_ = await Category
+		.find({}, null, {
+			limit: Number(limit || 100),
+			offset: Number(offset || 0),
+			sort: { visits: -1 }
+		})
+		.exec();
+
+	const final = categories_
+		.filter(category => {
+			return categories[category._id]
+		})
+		.map(category => ({
+			category: category._id,
+			roles: Object.keys(categories[category._id] || {})
+		}));
+
+	return final;
+};
 
 module.exports = {
 	incVisits,

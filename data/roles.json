@@ -78,7 +78,7 @@
 		"Django": ["django"],
 		"Redux": ["redux"],
 		"MacOS": ["mac", "macos"],
-    	"Windows":["windows"],
+		"Windows":["windows"],
 		"Redis": ["redis","cache"],
 		"PostgreSQL": ["postgre"],
 		"Haskell": ["haskell"],
