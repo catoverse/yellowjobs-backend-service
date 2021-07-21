@@ -52,14 +52,29 @@ const parseURLs = (text) => {
 };
 
 const parseJobType = (text) => {
-  if(text.search("parttime") != -1){
-    return "parttime";
-  }
-  if(text.search("intern") != -1){
-    return "internship";
-  }
-  if(text.search(/freelance|temporary/g) != -1){
-    return "freelance";
+  let words = text.toLowerCase().split(/\W/g).filter(_=>_);
+  let nextWords = new Array(words.length + 1).fill("");
+
+  for(let i = 0; nextWords.length > 1 && i < 2; ++i){
+    nextWords.pop();
+
+    for(let j = 0; j < nextWords.length; ++j){
+      nextWords[j] += words[i+j];
+    }
+    for(const word of nextWords){
+      if(word == "parttime"){
+        return "parttime";
+      }
+      if(word == "intern" || word == "interns" || word == "internship"){
+        return "internship";
+      }
+      if(word == "freelance" || word == "temporary"){
+        return "freelance";
+      }
+      if(word == "fulltime"){
+        return "fulltime";
+      }
+    }
   }
   return "fulltime";
 };
@@ -98,7 +113,7 @@ const parseTweet = async (raw_text) => {
   return {
     categories: [... new Set(roles.map(role => categories[role]).flat())],
     roles: roles,
-    type: parseJobType(text),
+    type: parseJobType(raw_text),
     emails: raw_text.match(emailRegex) || [],
     urls: [...new Set(await parseURLs(raw_text))],
     need_manual_verification: needManualVerification(raw_text),
