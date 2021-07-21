@@ -60,6 +60,10 @@ const isValid = (tweet) => {
   return followers > 50;
 };
 
+const isValid2 = (tweet) => {
+  return tweet.roles.length > 0;
+};
+
 const fetchTweets = async () => {
   const newestID = Number((await Meta.findOne({})).sinceId);
 
@@ -70,7 +74,8 @@ const fetchTweets = async () => {
     )
   )
     .filter((result) => result.status == "fulfilled")
-    .map((result) => result.value);
+    .map((result) => result.value)
+    .filter(isValid2);
 
   const tweetsFetched = apiRes.statuses.length;
   const tweetsDiscarded = apiRes.statuses.length - tweets.length;
