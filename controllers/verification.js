@@ -1,7 +1,8 @@
 const Tweet = require("../models/Tweet.schema");
 
 const modify = async ({ auth, tweetId, accepted }) => {
-  if (tweetId == null || accepted == null) return;
+  if (tweetId == null || accepted == null)
+    throw new Error("tweetId and accepted are mandatory");
   console.log("Human Verification:", tweetId, accepted);
   await Tweet.updateOne(
     { tweet_id: tweetId },
@@ -10,7 +11,7 @@ const modify = async ({ auth, tweetId, accepted }) => {
         accepted === "approved" ? "approved" : "rejected",
     }
   );
-  return "Success!";
+  return "Operation Ssuccess!";
 };
 
 module.exports = {
