@@ -4,7 +4,8 @@
   "main": "server.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node server.js",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "jest": "^27.0.6",
     "nodemon": "^2.0.7",
     "prettier": "^2.3.0"
   }

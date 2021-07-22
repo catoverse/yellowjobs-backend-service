@@ -7,11 +7,12 @@ const Meta = require("./models/Meta.schema");
 const Logger = require("./logger");
 
 const MAX_RESULTS = 100;
+const tweetQuery = require("./data/twitterQuery.json").query;
 
 const fetchSearchResults = async (newestID) => {
   const url = `https://api.twitter.com/1.1/search/tweets.json?count=${MAX_RESULTS}&${
     newestID ? `since_id=${newestID}&` : ""
-  }q=(("looking for" -job -gig -intern -role -am) OR hiring) remote -podcast -know -how -tips -nobody -anybody -anyone -blog -filter:retweets -filter:quote&tweet_mode=extended&include_entities=false`;
+  }q=${tweetQuery}&tweet_mode=extended&include_entities=false`;
 
   const res = await fetch(url, {
     method: "GET",
@@ -65,17 +66,18 @@ const isValid2 = (tweet) => {
 };
 
 const fetchTweets = async () => {
-  const newestID = Number((await Meta.findOne({})).sinceId);
+  const newestID = Number((await Meta.findOne({})).sinceId); //get since id from DB
 
-  const apiRes = await fetchSearchResults(newestID);
-  const tweets = (
-    await Promise.allSettled(
-      apiRes.statuses.filter(isValid).map(buildTweetObject)
-    )
-  )
-    .filter((result) => result.status == "fulfilled")
-    .map((result) => result.value)
-    .filter(isValid2);
+  const apiRes = await fetchSearchResults(newestID); //get tweets from the Twitter API
+
+  var tweets = await Promise.allSettled(
+    apiRes.statuses
+      .filter(isValid) // if the follower count of the user >50
+      .map(buildTweetObject)
+  );
+  tweets = tweets.filter((result) => result.status == "fulfilled");
+  tweets = tweets.map((result) => result.value);
+  tweets = tweets.filter(isValid2); // check if tweet has a role
 
   const tweetsFetched = apiRes.statuses.length;
   const tweetsDiscarded = apiRes.statuses.length - tweets.length;
@@ -91,7 +93,7 @@ const fetchTweets = async () => {
 };
 
 const saveTweets = async ({ tweets, maxId }) => {
-  console.log(tweets);
+  //console.log(tweets);
 
   const ops = tweets.map((tweet) => ({
     updateOne: {
@@ -106,10 +108,6 @@ const saveTweets = async ({ tweets, maxId }) => {
     {},
     { sinceId: String(BigInt(maxId) - (BigInt(1000 * 60 * 10) << BigInt(22))) }
   );
-
-  // console.log(`${nMatch} tweets matched update filter`);
-  // console.log(`${nMod} tweets updated`);
-  // console.log(`Inserted ${nInsert} new tweets to DB`);
 };
 
 module.exports.fetchAndSaveTweets = () => fetchTweets().then(saveTweets);
