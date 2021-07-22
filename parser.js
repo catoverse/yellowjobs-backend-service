@@ -2,14 +2,37 @@ const { contentSecurityPolicy } = require("helmet");
 const fetch = require("node-fetch");
 const rolesRaw = require("./data/roles.json");
 
-const categories = Object.keys(rolesRaw).map(category => Object.keys(rolesRaw[category]).map(role => ({ role, category }))).flat().reduce((acc, { role, category }) => acc[role] ? acc[role].push(category) && acc : ({ ...acc, [role]: [category] }), {});
+const categories = Object.keys(rolesRaw)
+  .map((category) =>
+    Object.keys(rolesRaw[category]).map((role) => ({ role, category }))
+  )
+  .flat()
+  .reduce(
+    (acc, { role, category }) =>
+      acc[role]
+        ? acc[role].push(category) && acc
+        : { ...acc, [role]: [category] },
+    {}
+  );
 
-const keywords = Object.values(rolesRaw).map(r => Object.entries(r).map(([role, keywords]) => keywords.map(keyword => ({ keyword, role })))).flat(2).reduce((acc, { keyword, role }) => acc[keyword] ? acc[keyword].push(role) && acc : ({ ...acc, [keyword]: [role] }), {});
+const keywords = Object.values(rolesRaw)
+  .map((r) =>
+    Object.entries(r).map(([role, keywords]) =>
+      keywords.map((keyword) => ({ keyword, role }))
+    )
+  )
+  .flat(2)
+  .reduce(
+    (acc, { keyword, role }) =>
+      acc[keyword]
+        ? acc[keyword].push(role) && acc
+        : { ...acc, [keyword]: [role] },
+    {}
+  );
 
+//remove all special characters incliuding spaces
 const normalize = (text) => {
-  return text
-    .toLowerCase()
-    .replace(/\W/g, "");
+  return text.toLowerCase().replace(/\W/g, "");
 };
 /*
 const find = (text, values) => {
@@ -47,31 +70,39 @@ const parsePhoneNumbers = (text) => {
   ].filter((_) => _);
 };
 */
+
 const parseURLs = (text) => {
-  return Promise.all((text.match(/https:\/\/t.co\/\w{10}/g) || []).map(async url => (await fetch(url)).url));
+  return Promise.all(
+    (text.match(/https:\/\/t.co\/\w{10}/g) || []).map(
+      async (url) => (await fetch(url)).url
+    )
+  );
 };
 
 const parseJobType = (text) => {
-  let words = text.toLowerCase().split(/\W/g).filter(_=>_);
+  let words = text
+    .toLowerCase()
+    .split(/\W/g)
+    .filter((_) => _);
   let nextWords = new Array(words.length + 1).fill("");
 
-  for(let i = 0; nextWords.length > 1 && i < 2; ++i){
+  for (let i = 0; nextWords.length > 1 && i < 2; ++i) {
     nextWords.pop();
 
-    for(let j = 0; j < nextWords.length; ++j){
-      nextWords[j] += words[i+j];
+    for (let j = 0; j < nextWords.length; ++j) {
+      nextWords[j] += words[i + j];
     }
-    for(const word of nextWords){
-      if(word == "parttime"){
+    for (const word of nextWords) {
+      if (word == "parttime") {
         return "parttime";
       }
-      if(word == "intern" || word == "interns" || word == "internship"){
+      if (word == "intern" || word == "interns" || word == "internship") {
         return "internship";
       }
-      if(word == "freelance" || word == "temporary"){
+      if (word == "freelance" || word == "temporary") {
         return "freelance";
       }
-      if(word == "fulltime"){
+      if (word == "fulltime") {
         return "fulltime";
       }
     }
@@ -86,38 +117,43 @@ const needManualVerification = (text) => {
 const parseRoles = (text) => {
   // Converts a text like "This is a sentence" to "thisis", "isa", "asentence", "thisisa", "isasentence", "thisisasentence" and matches with the keywords list
 
-  let words = text.toLowerCase().split(/\W/g).filter(_=>_);
+  let words = text
+    .toLowerCase()
+    .split(/\W/g)
+    .filter((_) => _);
   let nextWords = new Array(words.length + 1).fill("");
-  const roles = new Set;
+  const roles = new Set();
 
-  for(let i = 0; nextWords.length > 1 && i < 3; ++i){ // stop when either there are no more words to join or the number of words already joined is more than 3, assuming our keyword list doesn't have any keyword that requires more than 3 whitespaces
+  for (let i = 0; nextWords.length > 1 && i < 3; ++i) {
+    // stop when either there are no more words to join or the number of words already joined is more than 3, assuming our keyword list doesn't have any keyword that requires more than 3 whitespaces
     nextWords.pop();
 
-    for(let j = 0; j < nextWords.length; ++j){
-      nextWords[j] += words[i+j];
+    for (let j = 0; j < nextWords.length; ++j) {
+      nextWords[j] += words[i + j];
     }
-    for(const word of nextWords){
-      if(keywords[word]){ // `keywords` is a map created from roles.json for constant time lookups
+    for (const word of nextWords) {
+      if (keywords[word]) {
+        // `keywords` is a map created from roles.json for constant time lookups
         roles.add(keywords[word]);
       }
     }
   }
-  console.log(`Text: ${text}\nRoles: ${[...roles]}\n`);
+  //console.log(`Text: ${text}\nRoles: ${[...roles]}\n`);
   return [...roles].flat();
 };
 
 const parseTweet = async (raw_text) => {
-  const text = normalize(raw_text);
+  const text = normalize(raw_text); //remove all special characters incliuding spaces
   const roles = parseRoles(raw_text);
 
   return {
-    categories: [... new Set(roles.map(role => categories[role]).flat())],
+    categories: [...new Set(roles.map((role) => categories[role]).flat())],
     roles: roles,
     type: parseJobType(raw_text),
     emails: raw_text.match(emailRegex) || [],
     urls: [...new Set(await parseURLs(raw_text))],
     need_manual_verification: needManualVerification(raw_text),
-    stripped_text: text
+    stripped_text: text,
   };
 };
 
