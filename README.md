@@ -1,11 +1,9 @@
-# Project Title
+# YellowJobs Backend
 
-YellowJobs Backend
 
 ---
 
-# Frontend Repo
-
+Frontend Repo
 https://github.com/catoverse/yellowjobs-frontend
 
 Live site: www.yellowjobs.com
