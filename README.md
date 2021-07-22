@@ -6,8 +6,8 @@
 Frontend Repo
 https://github.com/catoverse/yellowjobs-frontend
 
-Live site: www.yellowjobs.com
-Live API: www.api.yellowjobs.com
+Live site: www.yellowjobs.org
+Live API: www.api.yellowjobs.org
 
 ## Requirements
 
