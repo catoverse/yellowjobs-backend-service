@@ -103,13 +103,16 @@ const saveTweets = async ({ tweets, maxId }) => {
     },
   }));
 */
+  const newTweets = [];
+
   await Promise.all(tweets.map(async tweet => {
     if(await Tweet.findOne({ text: tweet.text })){
       await Tweet.updateOne({ text: tweet.text }, { created_on: tweet.created_on });
     } else {
-      await Tweet.insertOne(tweet);
+      newTweets.push(tweet);
     }
   }));
+  await Tweet.insertMany(newTweets);
 
   await Meta.updateOne(
     {},
