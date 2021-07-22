@@ -94,7 +94,7 @@ const fetchTweets = async () => {
 
 const saveTweets = async ({ tweets, maxId }) => {
   //console.log(tweets);
-
+/*
   const ops = tweets.map((tweet) => ({
     updateOne: {
       upsert: true,
@@ -102,8 +102,15 @@ const saveTweets = async ({ tweets, maxId }) => {
       update: tweet,
     },
   }));
+*/
+  await Promise.all(tweets.map(async tweet => {
+    if(await Tweet.findOne({ text: tweet.text })){
+      await Tweet.updateOne({ text: tweet.text }, { created_on: tweet.created_on });
+    } else {
+      await Tweet.insertOne(tweet);
+    }
+  }));
 
-  await Tweet.bulkWrite(ops);
   await Meta.updateOne(
     {},
     { sinceId: String(BigInt(maxId) - (BigInt(1000 * 60 * 10) << BigInt(22))) }
