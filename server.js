@@ -19,7 +19,7 @@ const verificationRoutes = require("./routes/verification");
 const app = express();
 
 const DB_URL = process.env.MONGO_URI;
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 4000;
 
 const swaggerDocs = swaggerJsDoc({
   swaggerDefinition: {
@@ -70,7 +70,7 @@ mongoose
     }
 
     app.listen(PORT, "0.0.0.0", () => {
-      console.log("🚀 Server Ready!");
+      console.log("🚀 Server Ready! at port:", PORT);
     });
     process.on("beforeExit", () => {
       categoryController.flush();

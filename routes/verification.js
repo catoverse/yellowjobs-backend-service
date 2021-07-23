@@ -1,24 +1,11 @@
 const express = require("express");
+const swaggerJSDoc = require("swagger-jsdoc");
 const verificationController = require("../controllers/verification");
 const router = express.Router();
-/**
- *@sw0agger
- *definitions:
- *  Verification:
- *    type: object
- *    properties:
- *      auth:
- *        type: string
- *      tweetId:
- *        type: string
- *      accepted:
- *        type: string
- **/
 
 /**
  * @swagger
  * /api/verify:
- * api/verify:
  *   post:
  *     summary: For human verification of tweets
  *     description: Change need_manual_verification to approved or rejected after human verification
@@ -27,7 +14,14 @@ const router = express.Router();
  *       name: "body"
  *       required: true
  *       schema:
- *         $ref: "#/definitions/Verification"
+ *         type: object
+ *         properties:
+ *           auth:
+ *             type: string
+ *           tweetId:
+ *             type: string
+ *           accepted:
+ *             type: string
  *     responses:
  *       200:
  *         description: Success
