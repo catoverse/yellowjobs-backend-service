@@ -9,6 +9,7 @@ https://github.com/catoverse/yellowjobs-frontend
 
 Swagger API: https://yellowjobs-backend-33ujg.ondigitalocean.app
 
+Fetch Logic : https://catoverse.notion.site/Working-of-Tweet-fetch-logic-cbe2b3221e68402cb0cdb80476d6b759
 ## Requirements
 
 For development, you will only need Node.js and a node global package, Yarn, installed in your environement.
