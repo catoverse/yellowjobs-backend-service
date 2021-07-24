@@ -31,9 +31,9 @@ const keywords = Object.values(rolesRaw)
   );
 
 //remove all special characters incliuding spaces
-const normalize = (text) => {
-  return text.toLowerCase().replace(/\W/g, "");
-};
+// const normalize = (text) => {
+//   return text.toLowerCase().replace(/\W/g, "");
+// };
 /*
 const find = (text, values) => {
   const set = new Set();
@@ -143,7 +143,7 @@ const parseRoles = (text) => {
 };
 
 const parseTweet = async (raw_text) => {
-  const text = normalize(raw_text); //remove all special characters incliuding spaces
+  //const text = normalize(raw_text); //remove all special characters incliuding spaces
   const roles = parseRoles(raw_text);
 
   return {
@@ -153,7 +153,7 @@ const parseTweet = async (raw_text) => {
     emails: raw_text.match(emailRegex) || [],
     urls: [...new Set(await parseURLs(raw_text))],
     need_manual_verification: needManualVerification(raw_text),
-    stripped_text: text,
+    //stripped_text: text,
   };
 };
 

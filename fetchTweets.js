@@ -44,7 +44,7 @@ const buildTweetObject = async (tweet) => {
     tweet_id: tweet.id_str,
     tweet_url: `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`,
     author_id: tweet.user.id_str,
-    text: data.stripped_text,
+    text: tweet.full_text || tweet.text,
     likes: tweet.favorite_count,
     retweets: tweet.retweet_count,
     tweet_ast: tweetAst,
@@ -94,7 +94,7 @@ const fetchTweets = async () => {
 
 const saveTweets = async ({ tweets, maxId }) => {
   //console.log(tweets);
-/*
+  /*
   const ops = tweets.map((tweet) => ({
     updateOne: {
       upsert: true,
@@ -105,13 +105,18 @@ const saveTweets = async ({ tweets, maxId }) => {
 */
   const newTweets = [];
 
-  await Promise.all(tweets.map(async tweet => {
-    if(await Tweet.findOne({ text: tweet.text })){
-      await Tweet.updateOne({ text: tweet.text }, { created_on: tweet.created_on });
-    } else {
-      newTweets.push(tweet);
-    }
-  }));
+  await Promise.all(
+    tweets.map(async (tweet) => {
+      if (await Tweet.findOne({ text: tweet.text })) {
+        await Tweet.updateOne(
+          { text: tweet.text },
+          { created_on: tweet.created_on }
+        );
+      } else {
+        newTweets.push(tweet);
+      }
+    })
+  );
   await Tweet.insertMany(newTweets);
 
   await Meta.updateOne(
