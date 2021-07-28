@@ -1,5 +1,5 @@
 const express = require("express");
-const { incVisits } = require("../controllers/category");
+// const { incVisits } = require("../controllers/category");
 const tweetController = require("../controllers/tweet");
 const router = express.Router();
 
@@ -57,7 +57,7 @@ router.get("/tweets", async (req, res) => {
   } catch (error) {
     res.send({ error: error.message });
   }
-
+  /*
   try {
     const categories = new Set();
 
@@ -70,6 +70,7 @@ router.get("/tweets", async (req, res) => {
   } catch (error) {
     console.error(error);
   }
+  */
 });
 
 module.exports = router;

@@ -1,12 +1,8 @@
 const Category = require("../models/Category.schema");
-const categories = require("../data/roles.json");
+const categoriesRaw = require("../data/roles.json");
+const categories = Object.keys(categoriesRaw).map(category => ({ category, roles: Object.keys(categoriesRaw[category]) }));
 
-const categoriesKeywords = Object.keys(categories)
-  .map((category) => ({
-    [category.toLowerCase().replace(/\s+/g, "")]: category,
-  }))
-  .reduce((a, b) => ({ ...a, ...b }), {});
-
+/*
 const cache = {};
 
 const incVisits = async (category) => {
@@ -47,9 +43,8 @@ const flush = async () => {
 	cache = {};
 	console.log("Done flushing cache.");
 };
-
+*/
 const find = async ({ limit, offset, name }) => {
-
 	if(name){
 		const category = categoriesKeywords[name];
 		const roles = categories[category];
@@ -57,28 +52,11 @@ const find = async ({ limit, offset, name }) => {
 		return { category, roles };
 	}
 
-	const categories_ = await Category
-		.find({}, null, {
-			limit: Number(limit || 100),
-			offset: Number(offset || 0),
-			sort: { visits: -1 }
-		})
-		.exec();
-
-	const final = categories_
-		.filter(category => {
-			return categories[category._id]
-		})
-		.map(category => ({
-			category: category._id,
-			roles: Object.keys(categories[category._id] || {})
-		}));
-
-	return final;
+	return categories.slice(offset, limit);
 };
 
 module.exports = {
-	incVisits,
-	flush,
+//	incVisits,
+//	flush,
 	find
 };
