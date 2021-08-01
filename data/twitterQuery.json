@@ -1,3 +1,3 @@
 {
-    "query": "((looking -job -gig -role -am) OR hiring) remote -podcast -know -how -tips -nobody -anybody -anyone -blog -filter:retweets -filter:quote"
+    "query": "((hire -job -gig -role -am) OR (\"looking for\" -job -gig -role -am) OR hiring) remote -podcast -know -how -tips -nobody -anybody -anyone -blog -filter:retweets -filter:quote"
 }
