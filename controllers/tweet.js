@@ -22,13 +22,14 @@ exports.findAll = async ({
   //const mongoQuery = { $and: [{ need_manual_verification: false }] };
   const mongoQuery = {
     $and: [
-      { $or: [] },
       { need_manual_verification: unverified === "true" ? "true" : { $in: ["false", "approved"] } }
     ]
   };
 
   if(categories){
-    mongoQuery.$and[0].$or.push({
+    mongoQuery.$or = [];
+
+    mongoQuery.$or.push({
       $or: categories
         .toLowerCase()
         .split(",")
@@ -41,7 +42,10 @@ exports.findAll = async ({
     });
   }
   if(roles){
-    mongoQuery.$and[0].$or.push({
+    if(!mongoQuery.$or){
+      mongoQuery.$or = [];
+    }
+    mongoQuery.$or.push({
       $or: roles
         .toLowerCase()
         .split(",")
