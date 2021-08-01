@@ -58,7 +58,7 @@ mongoose
     fetchAndSaveTweets();
 
     if (process.env.NODE_ENV === "production") {
-      cron.schedule("*/10 * * * *", async () => {
+      cron.schedule("*/5 * * * *", async () => {
         console.log("Fetching Tweets...");
         console.time("fetchTweets");
 
