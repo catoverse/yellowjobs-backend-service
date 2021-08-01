@@ -19,21 +19,23 @@ const router = express.Router();
  *               type: integer
  *               description: number of tweets to offset the results by
  *             - in: query
- *               name: type
+ *               name: typea
  *               type: array
  *               items:
  *                   type: string
  *               description: fulltime/parttime/internship/freelance
  *             - in: query
- *               name: role
+ *               name: roles
  *               type: array
  *               items:
  *                   type: string
  *               description: list of roles to filter
  *             - in: query
- *               name: category
- *               type: string
- *               description: job category to filter
+ *               name: categories
+ *               type: array
+ *               items:
+ *                   type: string
+ *               description: list of job categories to filter
  *             - in: query
  *               name: q
  *               type: string
