@@ -26,7 +26,7 @@ const swaggerDocs = swaggerJsDoc({
     info: {
       version: "1.0.0",
       title: "YellowJobs API",
-      description: "YellowJobs API Information",
+      description: "YellowJobs API v1",
       contact: {
         name: "API Support",
         url: "",
