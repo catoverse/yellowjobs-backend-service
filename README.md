@@ -1,65 +1,22 @@
+![](https://www.yellowjobs.org/preview.png)
 # YellowJobs Backend
 
----
+## Live site: www.yellowjobs.org
 
 Frontend Repo
 https://github.com/catoverse/yellowjobs-frontend
 
-## Live site: www.yellowjobs.org
-
 Swagger API: https://api.yellowjobs.org
 
-Fetch Logic : https://catoverse.notion.site/Working-of-Tweet-fetch-logic-cbe2b3221e68402cb0cdb80476d6b759
 
-## Requirements
+## Description
+The backend is responsable for two things
+- Running a CRON job after a fixed interval of time to fetch tweets from the Tweet API and write it to the DB(mongo) after processing
+- Serve the web API for the frontend.
 
-For development, you will only need Node.js and a node global package, Yarn, installed in your environement.
 
-### Node
+The Tweet Fetch Logic : https://catoverse.notion.site/Working-of-Tweet-fetch-logic-cbe2b3221e68402cb0cdb80476d6b759
 
-- #### Node installation on Windows
-
-  Just go on [official Node.js website](https://nodejs.org/) and download the installer.
-  Also, be sure to have `git` available in your PATH, `npm` might need it (You can find git [here](https://git-scm.com/)).
-
-- #### Node installation on Ubuntu
-
-  You can install nodejs and npm easily with apt install, just run the following commands.
-
-      $ sudo apt install nodejs
-      $ sudo apt install npm
-
-- #### Other Operating Systems
-  You can find more information about the installation on the [official Node.js website](https://nodejs.org/) and the [official NPM website](https://npmjs.org/).
-
-If the installation was successful, you should be able to run the following command.
-
-    $ node --version
-    v8.11.3
-
-    $ npm --version
-    6.1.0
-
-If you need to update `npm`, you can make it using `npm`! Cool right? After running the following command, just open again the command line and be happy.
-
-    $ npm install npm -g
-
-###
-
-### Yarn installation
-
-After installing node, this project will need yarn too, so just run the following command.
-
-      $ npm install -g yarn
-
----
-
-## Install
-
-    $ git clone https://github.com/catoverse/yellowjobs-backend
-    $ cd yellowjobs-backend
-    $ npm i
-
-## Running the project
-
-    $ npm start
+## Primary Maintainers
+1. [Anshul](https://twitter.com/anshulagx)
+2. [Apoorv](https://twitter.com/ApoorvSingal)
