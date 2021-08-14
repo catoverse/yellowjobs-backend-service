@@ -251,16 +251,16 @@
 	},
 
 	"Support": {
-		"Support": ["support", "care"],
-		"Helpdesk": ["helpdesk"],
-		"Community Management": ["communitymanager","communitymanagers","community", "discord"],
-		"Virtual Assistant": ["virtualassistant","virtualassistants"],
-		"Executive Assistant": ["executiveassistant","executiveassistants"],
 		"Chat": ["chat"],
-		"Service": ["customerservice"],
-		"Telecalling":["telecaller","telecallers","telecalling"],
+		"Community Management": ["communitymanager","communitymanagers","community", "discord"],
 		"Customer Success": ["customersuccess","clientsuccess"],
-    "Quality Assurance": ["qualityassurance", "qa"]
+		"Executive Assistant": ["executiveassistant","executiveassistants"],
+		"Helpdesk": ["helpdesk"],
+      "Quality Assurance": ["qualityassurance", "qa"],
+		"Service": ["customerservice"],
+      "Support": ["support", "care"],
+		"Telecalling":["telecaller","telecallers","telecalling"],
+		"Virtual Assistant": ["virtualassistant","virtualassistants"]
 	},
 
 	"Others": {
