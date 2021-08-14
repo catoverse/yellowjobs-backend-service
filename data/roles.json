@@ -208,11 +208,11 @@
 	},
 
 	"Sales": {
-		"Sales":["sales","salespeople","salesperson","salespersons"],
-		"Call":["call","telecallers","telecaller","coldsales"],
-		"Business Development": ["businessdevelopment","bdm"],
+      "Account Manager": ["accountmanager","accountmanagement","accountmanagers"],
 		"Ambassador": ["ambassador","ambassadors"],
-    "Account Manager": ["accountmanager","accountmanagement","accountmanagers"]
+		"Business Development": ["businessdevelopment","bdm"],
+		"Call":["call","telecallers","telecaller","coldsales"],
+      "Sales":["sales","salespeople","salesperson","salespersons"]
 	},
 
 	"Content": {
