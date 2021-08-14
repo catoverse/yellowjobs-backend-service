@@ -231,23 +231,23 @@
 	},
 
 	"Marketing": {
-		"SEO": ["seo"],
-		"Marketing": ["marketing","marketer","marketers"],
-		"Digital Marketing": ["digitalmarketing","digitalmarketer","digitalmarketers","socialmediamarketing"],
-		"Marketing Manager": ["marketingmanager","marketingmanagers"],
-		"Content Marketing": ["contentmarketing","contentmarketer","contentmarketers"],
 		"Advertising": ["ads", "advertising"],
-		"Growth":["growth","growthhacker"],
-		"Sales":["sales","salespeople","salesperson","salespersons"],
+		"Affiliate marketing":["affiliate"],
 		"Brand":["brand"],
-		"Email marketer":["emailmarketer","emailmarketing","emailmarketers"],
 		"Campaign manager":["campaignmanager","campaignmanagers"],
+		"Channel marketing":["channelmarketing"],
+		"Content Marketing": ["contentmarketing","contentmarketer","contentmarketers"],
+		"Corporate partnership":["partnership"],
+		"Digital Marketing": ["digitalmarketing","digitalmarketer","digitalmarketers","socialmediamarketing"],
+		"Email marketer":["emailmarketer","emailmarketing","emailmarketers"],
+		"Growth":["growth","growthhacker"],
+		"Market research":["marketresearch","marketresearcher","marketresearchers"],
+		"Marketing Manager": ["marketingmanager","marketingmanagers"],
+		"Marketing": ["marketing","marketer","marketers"],
 		"Media Relations":["mediarelations","mediarelation"],
 		"Public relations":["publicrelations","publicrelation","pr","publicity"],
-		"Market research":["marketresearch","marketresearcher","marketresearchers"],
-		"Affiliate marketing":["affiliate"],
-		"Channel marketing":["channelmarketing"],
-		"Corporate partnership":["partnership"]
+		"Sales":["sales","salespeople","salesperson","salespersons"],
+      "SEO": ["seo"]
 	},
 
 	"Support": {
