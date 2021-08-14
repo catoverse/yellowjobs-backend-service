@@ -216,18 +216,18 @@
 	},
 
 	"Content": {
-		"Video": ["video", "vfx"],
-		"SEO": ["seo"],
-		"Youtube":["youtube"],
-		"Content creator":["content","creator"],
-		"Influencer":["influencer"],
 		"Blogger":["blogger"],
+		"Content creator":["content","creator"],
+		"Editing": ["editing"],
+		"Email":["email"],
+		"Influencer":["influencer"],
 		"Media":["media"],
 		"Post":["post"],
-		"Writer":["writer","copywriter","copy", "writing"],
+		"SEO": ["seo"],
 		"Technical Writer":["technicalwriter", "technicalwriting"],
-		"Email":["email"],
-		"Editing": ["editing"]
+		"Writer":["writer","copywriter","copy", "writing"],
+		"Youtube":["youtube"],
+      "Video": ["video", "vfx"]
 	},
 
 	"Marketing": {
