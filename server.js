@@ -49,9 +49,13 @@ app.use("/api", metaRoutes);
 app.use("/api", verificationRoutes);
 
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
+console.log(
+  "⚠️Starting ",
+  process.env.NODE_ENV == "production" ? "prod" : "staging",
+  " Environment"
+);
 mongoose
-  .connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(DB_URL, { dbName: process.env.NODE_ENV == "production" ? "prod" : "staging",useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("✅ Database Connected!");
 
