@@ -66,8 +66,15 @@ const isValid2 = (tweet) => {
 };
 
 const fetchTweets = async () => {
-  const newestID = Number((await Meta.findOne({})).sinceId); //get since id from DB
-
+  try {
+    var _sinceId = (await Meta.findOne({})).sinceId; //get since id from DB
+  } catch (err) {
+    console.error(
+      'Failed!\nPlease make a "meta" collection and then create a "sinceId" placeholder in the DB in meta collection and init with 0'
+    );
+    process.exit(0);
+  }
+  const newestID = Number(_sinceId);
   const apiRes = await fetchSearchResults(newestID); //get tweets from the Twitter API
 
   var tweets = await Promise.allSettled(
