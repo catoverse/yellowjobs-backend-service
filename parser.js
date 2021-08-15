@@ -105,6 +105,9 @@ const parseJobType = (text) => {
       if (word == "fulltime") {
         return "fulltime";
       }
+      if (word == "freshers" || word == "no experience"  || word == "fresher") {
+         return "freshers";
+      }
     }
   }
   return "fulltime";
