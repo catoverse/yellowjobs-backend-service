@@ -7,7 +7,7 @@ Frontend Repo
 https://github.com/catoverse/yellowjobs-frontend
 
 Swagger API: https://api.yellowjobs.org
-
+Swagger API staging : https://staging-yellowjobs-backend-h7ypy.ondigitalocean.app
 
 ## Description
 The backend is responsable for two things
