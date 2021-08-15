@@ -45,15 +45,18 @@ const flush = async () => {
 };
 */
 const find = async ({ limit, offset, name }) => {
-	if(name){
-		const category = categoriesKeywords[name];
-		const roles = categories[category];
-
-		return { category, roles };
+	if (name) {
+	  const category = Object.keys(categoriesRaw).find((cat) => cat === name);
+	  if (!category) throw new Error("category not found");
+  
+	  const roles = Object.keys(categoriesRaw[category]);
+  
+	  return { category, roles };
 	}
-
+  
 	return categories.slice(offset, limit);
-};
+  };
+  
 
 module.exports = {
 //	incVisits,
