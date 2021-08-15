@@ -1,9 +1,6 @@
 const Category = require("../models/Category.schema");
 const categoriesRaw = require("../data/roles.json");
-const categories = Object.keys(categoriesRaw).map((category) => ({
-  category,
-  roles: Object.keys(categoriesRaw[category]),
-}));
+const categories = Object.keys(categoriesRaw).map(category => ({ category, roles: Object.keys(categoriesRaw[category]) }));
 
 /*
 const cache = {};
@@ -48,20 +45,18 @@ const flush = async () => {
 };
 */
 const find = async ({ limit, offset, name }) => {
-  if (name) {
-    const category = Object.keys(categoriesRaw).find((cat) => cat === name);
-    if (!category) throw new Error("category not found");
+	if(name){
+		const category = categoriesKeywords[name];
+		const roles = categories[category];
 
-    const roles = Object.keys(categoriesRaw[category]);
+		return { category, roles };
+	}
 
-    return { category, roles };
-  }
-
-  return categories.slice(offset, limit);
+	return categories.slice(offset, limit);
 };
 
 module.exports = {
-  //	incVisits,
-  //	flush,
-  find,
+//	incVisits,
+//	flush,
+	find
 };
