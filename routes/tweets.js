@@ -19,7 +19,7 @@ const router = express.Router();
  *               type: integer
  *               description: number of tweets to offset the results by
  *             - in: query
- *               name: typea
+ *               name: types
  *               type: array
  *               items:
  *                   type: string
