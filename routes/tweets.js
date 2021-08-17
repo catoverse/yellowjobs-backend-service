@@ -19,7 +19,7 @@ const router = express.Router();
  *               type: integer
  *               description: number of tweets to offset the results by
  *             - in: query
- *               name: typea
+ *               name: types
  *               type: array
  *               items:
  *                   type: string
@@ -46,6 +46,10 @@ const router = express.Router();
  *               enum: [true, false]
  *               description: set true to get unverified tweets
  *               default: false
+ *             - in: query
+ *               name: IDs
+ *               type: string
+ *               description: ID search
  *         responses:
  *             200:
  *                 description: A list of tweet objects
@@ -74,5 +78,7 @@ router.get("/tweets", async (req, res) => {
   }
   */
 });
+
+
 
 module.exports = router;
