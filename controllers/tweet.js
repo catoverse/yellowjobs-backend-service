@@ -18,6 +18,7 @@ exports.findAll = async ({
   types,
   q,
   unverified,
+  IDs
 }) => {
   //const mongoQuery = { $and: [{ need_manual_verification: false }] };
   const mongoQuery = {
@@ -79,7 +80,16 @@ exports.findAll = async ({
       // Log the query for manual inspection for updating the keywords list if neccessary
     }
   }
-
+  if(IDs){
+    mongoQuery.$and.push({
+      $or: IDs
+        .toLowerCase()
+        .split(",")
+        .map((tweet_id) => ({ tweet_id })),
+    });
+  }
+  
+  console.log(mongoQuery);
   return (
     (await Tweet.find(mongoQuery, null, {
       limit: Number(limit),

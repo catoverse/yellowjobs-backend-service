@@ -46,6 +46,10 @@ const router = express.Router();
  *               enum: [true, false]
  *               description: set true to get unverified tweets
  *               default: false
+ *             - in: query
+ *               name: IDs
+ *               type: string
+ *               description: ID search
  *         responses:
  *             200:
  *                 description: A list of tweet objects
@@ -74,5 +78,7 @@ router.get("/tweets", async (req, res) => {
   }
   */
 });
+
+
 
 module.exports = router;
