@@ -227,7 +227,7 @@
 		"Technical Writer":["technicalwriter", "technicalwriting"],
 		"Writer":["writer","copywriter","copy", "writing"],
 		"Youtube":["youtube"],
-      "Video": ["video", "vfx"]
+    "Video": ["vfx", "videoeffects", "videoeditor", "videoediting"]
 	},
 
 	"Marketing": {
