@@ -98,7 +98,7 @@ router.get("/tweets", async (req, res) => {
  *       200:
  *         description: Success
  */
-router.post("/savedtweets", async (req, res) => {
+router.get("/savedtweets", async (req, res) => {
   let tweets = null;
 
   try {
