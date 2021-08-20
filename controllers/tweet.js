@@ -104,18 +104,24 @@ exports.findAll = async ({
 };
 
 exports.findSaved = async ({ userId }) => {
+  if (!userId.match(/^[0-9a-fA-F]{24}$/)) {
+    throw new Error("Not a valid userId");
+  }
+
   let data = await Feedback.find({
     userId: userId,
-    // action: "saved",
+    action: "save",
   });
 
+  console.log(data);
   let string = "";
 
   data.forEach((element) => {
     string += element.tweet_id + ",";
   });
 
-  //console.log(string);
-  const tweetObjects = await this.findAll((IDs = string));
+  console.log("the ids:", string);
+  if (!string) throw new Error("No saved tweets");
+  const tweetObjects = await this.findAll({ IDs: string });
   return tweetObjects;
 };

@@ -87,9 +87,8 @@ router.get("/tweets", async (req, res) => {
  *     description: saved
  *     parameters:
  *         - in: query
- *           name: limit
- *           type: integer
- *           description: max number of tweets to return
+ *           name: userId
+ *           type: string
  *     responses:
  *       200:
  *         description: Success
