@@ -5,11 +5,16 @@ require("dotenv").config();
 const { connect: connectDB } = require("../lib/db");
 const Tweet = require("../models/Tweet.schema");
 
-const validate = (tweet) => {
+const verifyTweet = (tweet) => {
+  const trimedText = tweet.text.toLowerCase().replace(/\W/g, "")
+  
   if(tweet.text.length < 80){
     return false;
   }
-  if(tweet.urls.length == 0 && tweet.email.length == 0 && tweet.text.toLowerCase().indexOf("DM") == -1){
+  if(tweet.urls.length == 0 && tweet.email.length == 0 && trimedText.toLowerCase().indexOf(/dm|comment/) == -1){
+    return false;
+  }
+  if(trimedText.indexOf(/location|store|onsite/) != -1 && tweet.categories.some(el => el == "Tech" || el == "Design")){
     return false;
   }
 
@@ -18,7 +23,7 @@ const validate = (tweet) => {
 
   for(let i = 0; i < words.length; ++i){
     const word = words[i];
-    
+
     switch(state){
     case 0:
 
@@ -37,9 +42,6 @@ const validate = (tweet) => {
         break;
       case "check":
         state = 4;
-        break;
-      case "is":
-        state = 10;
         break;
       }
       break;
@@ -134,15 +136,6 @@ const validate = (tweet) => {
       }
       break;
 
-      
-    case 2:
-      switch(word){
-      case "hiring":
-        return true;
-      default:
-        state = 0;
-      }
-      break;
     }
   }
 
