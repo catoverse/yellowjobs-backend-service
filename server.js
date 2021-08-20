@@ -4,12 +4,11 @@ const cron = require("node-cron");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const mongoose = require("mongoose");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
-const { fetchAndSaveTweets } = require("./fetchTweets");
-const categoryController = require("./controllers/category");
+const { connect: connectDB } = require("./lib/db");
+const { fetchAndSaveTweets } = require("./lib/fetchTweets");
 
 const categoriesRoutes = require("./routes/categories");
 const tweetsRoutes = require("./routes/tweets");
@@ -19,7 +18,6 @@ const feedbackRoutes = require("./routes/feedback");
 
 const app = express();
 
-const DB_URL = process.env.MONGO_URI;
 const PORT = process.env.PORT || 4000;
 
 const swaggerDocs = swaggerJsDoc({
@@ -53,38 +51,28 @@ app.use("/api", feedbackRoutes);
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 console.log(
   "⚠️Starting ",
-  process.env.NODE_ENV,
-  ":",
-  process.env.NODE_ENV === "production" ? "prod" : "staging",
+  process.env.NODE_ENV == "production" ? "prod" : "staging",
   " Environment"
 );
-mongoose
-  .connect(DB_URL, {
-    // dbName: process.env.NODE_ENV == "production" ? "prod" : "staging",
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("✅ Database Connected!");
 
-    fetchAndSaveTweets();
+connectDB().then(() => {
+  console.log("✅ Database Connected!");
 
-    if (process.env.NODE_ENV === "production") {
-      cron.schedule("*/5 * * * *", async () => {
-        console.log("Fetching Tweets...");
-        console.time("fetchTweets");
+  fetchAndSaveTweets();
 
-        await fetchAndSaveTweets();
+  if (process.env.NODE_ENV === "production") {
+    cron.schedule("*/1 * * * *", async () => {
+      console.log("Fetching Tweets...");
+      console.time("fetchTweets");
 
-        console.timeEnd("fetchTweets");
-        console.log("Done Fetching Tweets!");
-      });
-    }
+      await fetchAndSaveTweets();
 
-    app.listen(PORT, "0.0.0.0", () => {
-      console.log("🚀 Server Ready! at port:", PORT);
+      console.timeEnd("fetchTweets");
+      console.log("Done Fetching Tweets!");
     });
-    process.on("beforeExit", () => {
-      categoryController.flush();
-    });
+  }
+
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log("🚀 Server Ready! at port:", PORT);
   });
+});
