@@ -1,7 +1,7 @@
 const Tweet = require("../models/Tweet.schema");
 const Feedback = require("../models/Feedback.schema");
 
-const { parseRoles } = require("../parser");
+const { parseRoles } = require("../lib/parser");
 const roles_ = Object.values(require("../data/roles.json"))
   .flatMap((roles) => Object.keys(roles))
   .map((role) => ({ [role.toLowerCase().replace(/\s+/g, "")]: role }))
