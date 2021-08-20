@@ -159,7 +159,7 @@ connectDB().then(async () => {
       continue;
     }
 
-    if(!validate(tweet)){
+    if(!verifyTweet(tweet)){
       ops.push({
         updateOne: {
           filter: { text: tweet.text },
