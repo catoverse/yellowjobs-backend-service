@@ -59,7 +59,7 @@ connectDB().then(() => {
   fetchAndSaveTweets();
 
   if (process.env.NODE_ENV === "production") {
-    cron.schedule("*/5 * * * *", async () => {
+    cron.schedule("*/1 * * * *", async () => {
       console.log("Fetching Tweets...");
       console.time("fetchTweets");
 
