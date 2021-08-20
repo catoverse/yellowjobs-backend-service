@@ -14,6 +14,7 @@ const categoriesRoutes = require("./routes/categories");
 const tweetsRoutes = require("./routes/tweets");
 const metaRoutes = require("./routes/meta");
 const verificationRoutes = require("./routes/verification");
+const feedbackRoutes = require("./routes/feedback");
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use("/api", tweetsRoutes);
 app.use("/api", categoriesRoutes);
 app.use("/api", metaRoutes);
 app.use("/api", verificationRoutes);
+app.use("/api", feedbackRoutes);
 
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 console.log(
