@@ -82,18 +82,14 @@ router.get("/tweets", async (req, res) => {
 /**
  * @swagger
  * /api/savedtweets:
- *   post:
+ *   get:
  *     summary: Get saved tweets
  *     description: saved
  *     parameters:
- *     - in: "body"
- *       name: "body"
- *       required: true
- *       schema:
- *         type: object
- *         properties:
- *           userId:
- *             type: string
+ *         - in: query
+ *           name: limit
+ *           type: integer
+ *           description: max number of tweets to return
  *     responses:
  *       200:
  *         description: Success
