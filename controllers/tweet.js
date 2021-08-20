@@ -104,7 +104,18 @@ exports.findAll = async ({
 };
 
 exports.findSaved = async ({ userId }) => {
-  let a = await Feedback.find({ userId: "611ca7cf6c56990008210e3e" });
-  console.log(a);
-  return a;
+  let data = await Feedback.find({
+    userId: userId,
+    // action: "saved",
+  });
+
+  let string = "";
+
+  data.forEach((element) => {
+    string += element.tweet_id + ",";
+  });
+
+  //console.log(string);
+  const tweetObjects = await this.findAll((IDs = string));
+  return tweetObjects;
 };
