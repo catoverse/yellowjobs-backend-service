@@ -1,7 +1,5 @@
 const Tweet = require("../models/Tweet.schema");
-const Feedback = require("../models/Feedback.schema");
-
-const { parseRoles } = require("../lib/parser");
+const { parseRoles } = require("../parser");
 const roles_ = Object.values(require("../data/roles.json"))
   .flatMap((roles) => Object.keys(roles))
   .map((role) => ({ [role.toLowerCase().replace(/\s+/g, "")]: role }))
@@ -20,19 +18,15 @@ exports.findAll = async ({
   types,
   q,
   unverified,
-  IDs,
 }) => {
   //const mongoQuery = { $and: [{ need_manual_verification: false }] };
   const mongoQuery = {
     $and: [
-      {
-        need_manual_verification:
-          unverified === "true" ? "true" : { $in: ["false", "approved"] },
-      },
-    ],
+      { need_manual_verification: unverified === "true" ? "true" : { $in: ["false", "approved"] } }
+    ]
   };
 
-  if (categories) {
+  if(categories){
     mongoQuery.$or = [];
 
     mongoQuery.$or.push({
@@ -40,15 +34,15 @@ exports.findAll = async ({
         .toLowerCase()
         .split(",")
         .map((c) => {
-          if (categories_[c]) {
-            return { categories: categories_[c] };
+          if(categories_[c]){
+            return { categories: categories_[c] }
           }
           throw new Error("Invalid category " + c);
-        }),
+        })
     });
   }
-  if (roles) {
-    if (!mongoQuery.$or) {
+  if(roles){
+    if(!mongoQuery.$or){
       mongoQuery.$or = [];
     }
     mongoQuery.$or.push({
@@ -60,10 +54,10 @@ exports.findAll = async ({
             return { roles: roles_[r] };
           }
           throw new Error("Invalid role " + r);
-        }),
+        })
     });
   }
-  if (types) {
+  if(types){
     mongoQuery.$and.push({
       $or: types
         .toLowerCase()
@@ -85,15 +79,7 @@ exports.findAll = async ({
       // Log the query for manual inspection for updating the keywords list if neccessary
     }
   }
-  if (IDs) {
-    mongoQuery.$and.push({
-      $or: IDs.toLowerCase()
-        .split(",")
-        .map((tweet_id) => ({ tweet_id })),
-    });
-  }
 
-  console.log(mongoQuery);
   return (
     (await Tweet.find(mongoQuery, null, {
       limit: Number(limit),
@@ -101,27 +87,4 @@ exports.findAll = async ({
       sort: { created_on: -1 },
     }).exec()) || []
   );
-};
-
-exports.findSaved = async ({ userId }) => {
-  if (!userId.match(/^[0-9a-fA-F]{24}$/)) {
-    throw new Error("Not a valid userId");
-  }
-
-  let data = await Feedback.find({
-    userId: userId,
-    action: "save",
-  });
-
-  console.log(data);
-  let string = "";
-
-  data.forEach((element) => {
-    string += element.tweet_id + ",";
-  });
-
-  console.log("the ids:", string);
-  if (!string) throw new Error("No saved tweets");
-  const tweetObjects = await this.findAll({ IDs: string });
-  return tweetObjects;
 };

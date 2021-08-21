@@ -1,5 +1,5 @@
 //TODO: bulk write
-const Logs = require("../models/Logs.schema");
+const Logs = require("./models/Logs.schema");
 
 const log = (event, value) => {
   let data = {
