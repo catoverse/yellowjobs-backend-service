@@ -6,7 +6,7 @@ const save = async ({ userId, tweetId, action, value = 0 }) => {
   if (!userId.match(/^[0-9a-fA-F]{24}$/)) {
     throw new Error("Not a valid userId");
   }
-  if (!(action === "save" || action === "share" || action === "report"))
+  if (!(action === "save" || action === "share" || action === "report" || action === "apply"))
     throw new Error("invalid action. Can be save/share/report");
   const { n, nModified } = await Feedback.updateOne(
     {
