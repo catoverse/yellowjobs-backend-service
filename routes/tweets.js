@@ -19,7 +19,7 @@ const router = express.Router();
  *               type: integer
  *               description: number of tweets to offset the results by
  *             - in: query
- *               name: typea
+ *               name: types
  *               type: array
  *               items:
  *                   type: string
@@ -46,6 +46,10 @@ const router = express.Router();
  *               enum: [true, false]
  *               description: set true to get unverified tweets
  *               default: false
+ *             - in: query
+ *               name: IDs
+ *               type: string
+ *               description: ID search
  *         responses:
  *             200:
  *                 description: A list of tweet objects
@@ -73,6 +77,31 @@ router.get("/tweets", async (req, res) => {
     console.error(error);
   }
   */
+});
+
+/**
+ * @swagger
+ * /api/savedtweets:
+ *   get:
+ *     summary: Get saved tweets
+ *     description: saved
+ *     parameters:
+ *         - in: query
+ *           name: userId
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Success
+ */
+router.get("/savedtweets", async (req, res) => {
+  let tweets = null;
+
+  try {
+    tweets = await tweetController.findSaved(req.query);
+    res.send(tweets); // send response before we update the visits, no problem even if the update fails after the response has been sent
+  } catch (error) {
+    res.send({ error: error.message });
+  }
 });
 
 module.exports = router;
