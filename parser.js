@@ -71,12 +71,16 @@ const parsePhoneNumbers = (text) => {
 };
 */
 
-const parseURLs = (text) => {
-  return Promise.all(
+const parseURLs = async (text) => {
+  const urls = await Promise.all(
     (text.match(/https:\/\/t.co\/\w{10}/g) || []).map(
       async (url) => (await fetch(url)).url
     )
   );
+
+  return urls.filter(url => {
+    return !url.startsWith("https://twitter.com");
+  });
 };
 
 const parseJobType = (text) => {
