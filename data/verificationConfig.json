@@ -1,14 +1,17 @@
 {
-  
   "add": [
-    "are hiring",
-    "am hiring",
-    "re hiring",
-    "m hiring",
-    "are looking for someone",
     "am looking for someone",
+    "m looking for someone"
+  ],
+  "alwaysAdd": [
+    "am hiring",
+    "m hiring",
+
+    "are hiring",
+    "re hiring",
+
+    "are looking for someone",
     "re looking for someone",
-    "m looking for someone",
     
     "your cv",
     "your resume",
