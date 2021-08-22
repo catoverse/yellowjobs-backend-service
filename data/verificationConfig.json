@@ -1,0 +1,36 @@
+{
+  
+  "add": [
+    "are hiring",
+    "am hiring",
+    "re hiring",
+    "m hiring",
+    "are looking for someone",
+    "am looking for someone",
+    "re looking for someone",
+    "m looking for someone",
+    
+    "your cv",
+    "your resume",
+    "your portfolio",
+    "your profile",
+    "your work"
+  ],
+  "markForVerification": [
+    "i"
+  ],
+  "delete": [
+    "hire me",
+    "advice",
+    "article",
+    "check out my",
+    "my cv",
+    "my resume",
+    "my portfolio",
+    "my profile",
+    "my work",
+    "premium accounts",
+    "join our server"
+  ],
+  "default": "add"
+}
