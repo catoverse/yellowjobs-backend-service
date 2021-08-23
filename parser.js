@@ -1,4 +1,3 @@
-const { contentSecurityPolicy } = require("helmet");
 const fetch = require("node-fetch");
 const rolesRaw = require("./data/roles.json");
 
@@ -30,29 +29,13 @@ const keywords = Object.values(rolesRaw)
     {}
   );
 
-//remove all special characters incliuding spaces
-// const normalize = (text) => {
-//   return text.toLowerCase().replace(/\W/g, "");
-// };
-/*
-const find = (text, values) => {
-  const set = new Set();
-
-  for (let key in values) {
-    for (let word of values[key]) {
-      if (text.search(word) != -1) {
-        set.add(key);
-      }
-    }
-  }
-  return Array.from(set) || [];
-};
-*/
-// const phoneRegex =
-//  /(?!([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4}|[0-9]{2}))(\+?\d[\d -]{8,12}\d)/g;
 const emailRegex =
   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/g;
+
 /*
+const phoneRegex =
+  /(?!([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4}|[0-9]{2}))(\+?\d[\d -]{8,12}\d)/g;
+
 const parsePhoneNumbers = (text) => {
   return [
     ...new Set(
@@ -71,94 +54,117 @@ const parsePhoneNumbers = (text) => {
 };
 */
 
-const parseURLs = async (text) => {
-  const urls = await Promise.all(
-    (text.match(/https:\/\/t.co\/\w{10}/g) || []).map(
-      async (url) => (await fetch(url)).url
-    )
-  );
+const keywordMatch = (text, callback, maxDepth = 3) => {
+  // Converts a text like "This is a sentence" to "thisis", "isa", "asentence", "thisisa", "isasentence", "thisisasentence" and matches with the callback
 
-  return urls.filter(url => {
-    return !url.startsWith("https://twitter.com");
-  });
-};
-
-const parseJobType = (text) => {
   let words = text
     .toLowerCase()
     .split(/\W/g)
     .filter((_) => _);
   let nextWords = new Array(words.length + 1).fill("");
 
-  for (let i = 0; nextWords.length > 1 && i < 2; ++i) {
+  for (let i = 0; nextWords.length > 1 && i < maxDepth; ++i) {
+    // stop when either there are no more words to join or the number of words already joined is more than 3, assuming our keyword list doesn't have any keyword that requires more than `maxDepth` whitespaces
     nextWords.pop();
 
     for (let j = 0; j < nextWords.length; ++j) {
       nextWords[j] += words[i + j];
     }
     for (const word of nextWords) {
-      if (word == "parttime") {
-        return "parttime";
-      }
-      if (word == "intern" || word == "interns" || word == "internship") {
-        return "internship";
-      }
-      if (word == "freelance" || word == "temporary") {
-        return "freelance";
-      }
-      if (word == "fulltime") {
-        return "fulltime";
+      if (callback(word)) {
+        return true;
       }
     }
   }
-  return "fulltime";
+  return false;
 };
 
-const needManualVerification = (text) => {
-  return text.search(/\?/) != -1;
-};
+const parseURLs = (text) => [
+  ...new Set(text.match(/https:\/\/t.co\/\w{10}/g) || []),
+];
+const normalizeURLs = async (urls) => [
+  ...new Set(
+    await Promise.all(urls.map(async (url) => (await fetch(url)).url))
+  ),
+];
+const parseEmails = (raw_text) => raw_text.match(emailRegex) || [];
 
 const parseRoles = (text) => {
-  // Converts a text like "This is a sentence" to "thisis", "isa", "asentence", "thisisa", "isasentence", "thisisasentence" and matches with the keywords list
-
-  let words = text
-    .toLowerCase()
-    .split(/\W/g)
-    .filter((_) => _);
-  let nextWords = new Array(words.length + 1).fill("");
   const roles = new Set();
 
-  for (let i = 0; nextWords.length > 1 && i < 3; ++i) {
-    // stop when either there are no more words to join or the number of words already joined is more than 3, assuming our keyword list doesn't have any keyword that requires more than 3 whitespaces
-    nextWords.pop();
-
-    for (let j = 0; j < nextWords.length; ++j) {
-      nextWords[j] += words[i + j];
+  keywordMatch(text, (word) => {
+    if (keywords[word]) {
+      // `keywords` is a map created from roles.json for constant time lookups
+      roles.add(keywords[word]);
     }
-    for (const word of nextWords) {
-      if (keywords[word]) {
-        // `keywords` is a map created from roles.json for constant time lookups
-        roles.add(keywords[word]);
-      }
-    }
-  }
+  });
   //console.log(`Text: ${text}\nRoles: ${[...roles]}\n`);
   return [...roles].flat();
 };
 
+const parseJobType = (text) => {
+  let type = "fulltime";
+
+  keywordMatch(text, (word) => {
+    if (word == "parttime") {
+      type = "parttime";
+    } else if (
+      word == "intern" ||
+      word == "interns" ||
+      word == "internship" ||
+      word == "apprentice" ||
+      word == "apprenticeship"
+    ) {
+      type = "internship";
+    } else if (
+      word == "freelance" ||
+      word == "temporary" ||
+      word == "budget" ||
+      word == "contract"
+    ) {
+      type = "freelance";
+    } else if (word == "fulltime") {
+      type = "fulltime";
+    } else if (
+      word == "freshers" ||
+      word == "noexperience" ||
+      word == "fresher"
+    ) {
+      type = "freshers";
+    } else {
+      return false; // continue iterating
+    }
+    return true; // stop iterating once a type is found
+  });
+
+  return type;
+};
+
+const getCategoriesFromRoles = (roles) => [
+  ...new Set(roles.map((role) => categories[role]).flat()),
+];
 const parseTweet = async (raw_text) => {
   //const text = normalize(raw_text); //remove all special characters incliuding spaces
   const roles = parseRoles(raw_text);
 
   return {
-    categories: [...new Set(roles.map((role) => categories[role]).flat())],
+    categories: getCategoriesFromRoles(roles),
     roles: roles,
     type: parseJobType(raw_text),
-    emails: raw_text.match(emailRegex) || [],
-    urls: [...new Set(await parseURLs(raw_text))],
-    need_manual_verification: needManualVerification(raw_text),
+    emails: parseEmails(rawText),
+    urls: parseURLs(raw_text),
     //stripped_text: text,
   };
 };
 
-module.exports = { parseTweet, keywords, categories, parseRoles };
+module.exports = {
+  keywords,
+  categories,
+  parseTweet,
+  parseRoles,
+  parseEmails,
+  parseJobType,
+  parseURLs,
+  normalizeURLs,
+  getCategoriesFromRoles,
+};
