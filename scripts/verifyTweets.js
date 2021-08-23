@@ -62,5 +62,4 @@ connectDB().then(async () => {
 
   console.log("Done updating database. Script executed successfully.");
   process.exit();
-
 }).catch(console.error);

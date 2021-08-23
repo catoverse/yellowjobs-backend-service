@@ -1,3 +1,3 @@
 {
-    "query": "(hire OR hiring OR \"looking for\" OR internship OR interns OR intern OR freelance OR freelancer) -how -tips -filter:retweets -filter:quote"
+    "query": "(hire OR hiring OR \"looking for\" OR internship OR interns OR intern OR freelance OR freelancer OR apprentice) -how -\"pls hire\" -\"hire me\" -\"hire us\" -\"advice\" -\"check my\" -tips -he -she -filter:retweets -filter:quote"
 }
