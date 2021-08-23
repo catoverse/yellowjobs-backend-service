@@ -55,33 +55,22 @@ console.log(
   process.env.NODE_ENV == "production" ? "prod" : "staging",
   " Environment"
 );
-mongoose
-  .connect(DB_URL, {
-    dbName: process.env.NODE_ENV === "production" ? "prod" : "staging",
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("✅ Database Connected!");
 
-    fetchAndSaveTweets();
 
-    if (process.env.NODE_ENV === "production") {
-      cron.schedule("*/5 * * * *", async () => {
-        console.log("Fetching Tweets...");
-        console.time("fetchTweets");
+connectDB().then(() => {
+  console.log("✅ Database Connected!");
 
-        await fetchAndSaveTweets();
+  fetchAndSaveTweets();
 
-        console.timeEnd("fetchTweets");
-        console.log("Done Fetching Tweets!");
-      });
-    }
+  if (process.env.NODE_ENV === "production" || process.env.NODE_ENV == "staging") {
+    cron.schedule("*/1 * * * *", async () => {
+      console.log("Fetching Tweets...");
+      console.time("fetchTweets");
 
-    app.listen(PORT, "0.0.0.0", () => {
-      console.log("🚀 Server Ready! at port:", PORT);
-    });
-    process.on("beforeExit", () => {
-      categoryController.flush();
+      await fetchAndSaveTweets();
+
+      console.timeEnd("fetchTweets");
+      console.log("Done Fetching Tweets!");
+
     });
   });
