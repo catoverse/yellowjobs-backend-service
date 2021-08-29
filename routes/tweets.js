@@ -75,4 +75,29 @@ router.get("/tweets", async (req, res) => {
   */
 });
 
+/**
+ * @swagger
+ * /api/savedtweets:
+ *   get:
+ *     summary: Get saved tweets
+ *     description: saved
+ *     parameters:
+ *         - in: query
+ *           name: userId
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Success
+ */
+router.get("/savedtweets", async (req, res) => {
+  let tweets = null;
+
+  try {
+    tweets = await tweetController.findSaved(req.query);
+    res.send(tweets); // send response before we update the visits, no problem even if the update fails after the response has been sent
+  } catch (error) {
+    res.send({ error: error.message });
+  }
+});
+
 module.exports = router;
