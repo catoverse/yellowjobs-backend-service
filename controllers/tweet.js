@@ -22,11 +22,14 @@ exports.findAll = async ({
   //const mongoQuery = { $and: [{ need_manual_verification: false }] };
   const mongoQuery = {
     $and: [
-      { need_manual_verification: unverified === "true" ? "true" : { $in: ["false", "approved"] } }
-    ]
+      {
+        need_manual_verification:
+          unverified === "true" ? "true" : { $in: ["false", "approved"] },
+      },
+    ],
   };
 
-  if(categories){
+  if (categories) {
     mongoQuery.$or = [];
 
     mongoQuery.$or.push({
@@ -34,15 +37,15 @@ exports.findAll = async ({
         .toLowerCase()
         .split(",")
         .map((c) => {
-          if(categories_[c]){
-            return { categories: categories_[c] }
+          if (categories_[c]) {
+            return { categories: categories_[c] };
           }
           throw new Error("Invalid category " + c);
-        })
+        }),
     });
   }
-  if(roles){
-    if(!mongoQuery.$or){
+  if (roles) {
+    if (!mongoQuery.$or) {
       mongoQuery.$or = [];
     }
     mongoQuery.$or.push({
@@ -54,10 +57,10 @@ exports.findAll = async ({
             return { roles: roles_[r] };
           }
           throw new Error("Invalid role " + r);
-        })
+        }),
     });
   }
-  if(types){
+  if (types) {
     mongoQuery.$and.push({
       $or: types
         .toLowerCase()
@@ -87,4 +90,28 @@ exports.findAll = async ({
       sort: { created_on: -1 },
     }).exec()) || []
   );
+};
+
+exports.findSaved = async ({ userId }) => {
+  if (!userId.match(/^[0-9a-fA-F]{24}$/)) {
+    throw new Error("Not a valid userId");
+  }
+
+  let data = await Feedback.find({
+    userId: userId,
+    action: "save",
+    value: { $ne: -1 },
+  });
+
+  console.log(data);
+  let string = "";
+
+  data.forEach((element) => {
+    string += element.tweet_id + ",";
+  });
+
+  console.log("the ids:", string);
+  if (!string) throw new Error("No saved tweets");
+  const tweetObjects = await this.findAll({ IDs: string });
+  return tweetObjects;
 };
