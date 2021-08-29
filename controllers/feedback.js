@@ -1,19 +1,30 @@
 const Feedback = require("../models/Feedback.schema");
 
 const save = async ({ userId, tweetId, action, value = 0 }) => {
-  if (tweetId == null || userId == null || action == null)
-    throw new Error("tweetId, userId and action are mandatory feilds");
-  if (!userId.match(/^[0-9a-fA-F]{24}$/)) {
+  if (tweetId == null || action == null)
+    throw new Error("tweetId and action are mandatory feilds");
+
+  //If userId is provided but is invalid
+  if (userId && !userId.match(/^[0-9a-fA-F]{24}$/)) {
     throw new Error("Not a valid userId");
   }
-  if (!(action === "save" || action === "share" || action === "report"))
-    throw new Error("invalid action. Can be save/share/report");
+  if (
+    !(
+      action === "save" ||
+      action === "share" ||
+      action === "report" ||
+      action === "click"
+    )
+  )
+    throw new Error(
+      "invalid action. Can be save/share/report/click. For unsave event use action=save and value=-1"
+    );
+
   const { n, nModified } = await Feedback.updateOne(
     {
       tweet_id: tweetId,
       userId: userId,
       action: action,
-      value: value,
     },
     {
       tweet_id: tweetId,

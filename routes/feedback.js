@@ -8,7 +8,7 @@ const router = express.Router();
  * /api/feedback:
  *   post:
  *     summary: Record user interaction with a tweet
- *     description: record share,report,save event
+ *     description: record [share,report,save,click] event.
  *     parameters:
  *     - in: "body"
  *       name: "body"

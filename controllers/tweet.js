@@ -111,6 +111,7 @@ exports.findSaved = async ({ userId }) => {
   let data = await Feedback.find({
     userId: userId,
     action: "save",
+    value: {$ne:-1}
   });
 
   console.log(data);
