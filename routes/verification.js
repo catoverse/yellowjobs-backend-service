@@ -12,7 +12,6 @@ const router = express.Router();
  *     parameters:
  *     - in: "body"
  *       name: "body"
- *       required: true
  *       schema:
  *         type: object
  *         properties:
