@@ -202,6 +202,7 @@
 		"Operations": ["ops", "operations", "coo"],
       "Product Manager": ["productmanager","productmanagers", "pm", "manageproduct","productmanagement"],
 		"Project Manager": ["projectmanager","projectmanagers"],
+		"Supervisor":["supervisor","supervisors","supervising"],
 		"Team Lead": ["teamlead","teamleader","teamleaders"],
 		"Technical Recruiter": ["technicalrecruiter","technicalrecruiters"]
 	},
@@ -226,7 +227,7 @@
 		"Technical Writer":["technicalwriter", "technicalwriting"],
 		"Writer":["writer","copywriter","copy", "writing"],
 		"Youtube":["youtube"],
-    "Video": ["vfx", "videoeffects", "videoeditor", "videoediting"]
+      "Video": ["video", "vfx"]
 	},
 
 	"Marketing": {
