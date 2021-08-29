@@ -106,7 +106,7 @@
 		"Redis": ["redis", "cache"],
 		"Redux": ["redux"],
 		"Research": ["researcher", "researchers"],
-		"Robotics": ["robotics", "robot", "ros", "pid"],
+		"Robotics": ["robotics", "robot"],
 		"Ruby on Rails": ["rubyonrails"],
 		"Ruby": ["ruby"],
 		"Rust": ["rust"],
