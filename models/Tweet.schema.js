@@ -11,7 +11,7 @@ const schema = new mongoose.Schema(
 
     created_by: String,
     created_on: Number,
-    localtion: String,
+    location: String,
 
     need_manual_verification: {
       type: String,
