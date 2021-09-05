@@ -56,13 +56,15 @@ console.log(
   " Environment"
 );
 
-
 connectDB().then(() => {
   console.log("✅ Database Connected!");
 
   fetchAndSaveTweets();
 
-  if (process.env.NODE_ENV === "production" || process.env.NODE_ENV == "staging") {
+  if (
+    process.env.NODE_ENV === "production" ||
+    process.env.NODE_ENV == "staging"
+  ) {
     cron.schedule("*/1 * * * *", async () => {
       console.log("Fetching Tweets...");
       console.time("fetchTweets");
@@ -71,6 +73,6 @@ connectDB().then(() => {
 
       console.timeEnd("fetchTweets");
       console.log("Done Fetching Tweets!");
-
     });
-  });
+  }
+});

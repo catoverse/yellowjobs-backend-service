@@ -1,5 +1,17 @@
 const fetch = require("node-fetch");
-const rolesRaw = require("./data/roles.json");
+
+const fs = require("fs");
+const { parse: parseCSV } = require("csv/lib/sync");
+
+const rolesRaw = require("../data/roles.json");
+const cities = parseCSV(fs.readFileSync(__dirname + "/../data/cities.csv"));
+const citiesIndex = {};
+
+for (let city of cities) {
+  citiesIndex[city[0].toLowerCase().replace(/\W/g, "")] = city[0];
+  citiesIndex[city[1].toLowerCase().replace(/\W/g, "")] = city[1];
+  citiesIndex[city[2].toLowerCase().replace(/\W/g, "")] = city[2];
+}
 
 const categories = Object.keys(rolesRaw)
   .map((category) =>
@@ -77,6 +89,19 @@ const keywordMatch = (text, callback, maxDepth = 3) => {
     }
   }
   return false;
+};
+
+const parseLocation = (text) => {
+  let location;
+
+  keywordMatch(text, (word) => {
+    if (cities[word]) {
+      location = cities[word];
+      return true;
+    }
+  });
+
+  return location;
 };
 
 const parseURLs = (text) => [
@@ -167,4 +192,5 @@ module.exports = {
   parseURLs,
   normalizeURLs,
   getCategoriesFromRoles,
+  parseLocation,
 };
