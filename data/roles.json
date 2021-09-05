@@ -53,7 +53,7 @@
 		"Game Dev": ["gamedev", "gamedesigner", "graphic", "3dmodeling"],
 		"Git": ["git"],
 		"Gitlab": ["gitlab"],
-		"Golang": ["golang", "go"],
+		"Golang": ["golang"],
 		"Grafana": ["grafana"],
 		"GraphQL": ["graphql"],
 		"HTML": ["html"],
