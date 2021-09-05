@@ -92,7 +92,7 @@ const keywordMatch = (text, callback, maxDepth = 3) => {
 };
 
 const parseLocation = (text) => {
-  let location;
+  let location = null;
 
   keywordMatch(text, (word) => {
     if (cities[word]) {
