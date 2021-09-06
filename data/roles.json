@@ -1,6 +1,5 @@
 {
 	"Tech": {
-		".NET": [".net", "dotnet"],
 		"AWS": ["aws"],
 		"Agile": ["agile"],
 		"Airflow": ["airflow"],
