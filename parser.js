@@ -3,8 +3,8 @@ const fetch = require("node-fetch");
 const fs = require("fs");
 const { parse: parseCSV } = require("csv/lib/sync");
 
-const rolesRaw = require("../data/roles.json");
-const cities = parseCSV(fs.readFileSync(__dirname + "/../data/cities.csv"));
+const rolesRaw = require("./data/roles.json");
+const cities = parseCSV(fs.readFileSync(__dirname + "/data/cities.csv"));
 const citiesIndex = {};
 
 for (let city of cities) {
