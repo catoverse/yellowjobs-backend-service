@@ -1,15 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: yellowjobs-backend-service
+  name: yellowjobs-backend
 spec:
   selector:
     app: yellowjobs-backend
   ports:
     - protocol: "TCP"
-      port: 4000
-      targetPort: 4000
-  type: LoadBalancer
+      port: 5000
+      targetPort: 5000
+      nodePort: 30446 # (30000-32767 valid)
+  type: NodePort
 
 ---
 apiVersion: apps/v1
@@ -28,18 +29,18 @@ spec:
     spec:
       containers:
         - name: yellowjobs-backend
-          image: docker.io/yellowjobs/yellowjobs-backend:latest
+          image: docker.io/ans29hul/yellowjobs-backend:latest
           env:
-            - name: BEARER_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: twitter-bearer-token
-                  key: BEARER_TOKEN
             - name: MONGO_URI
               valueFrom:
                 secretKeyRef:
-                  name: mongodb-uri
-                  key: MONGO_URI
+                  name: yellowjobs-backend-mongo-uri
+                  key: node_backend
+            - name: BEARER_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: b-token
+                  key: b-token
           ports:
-            - containerPort: 4000
+            - containerPort: 5000
               protocol: "TCP"
