@@ -11,6 +11,7 @@ const swaggerUi = require("swagger-ui-express");
 const { fetchAndSaveTweets } = require("./fetchTweets");
 const categoryController = require("./controllers/category");
 
+const { connect: connectDB } = require("./lib/db");
 const categoriesRoutes = require("./routes/categories");
 const tweetsRoutes = require("./routes/tweets");
 const metaRoutes = require("./routes/meta");
@@ -75,4 +76,7 @@ connectDB().then(() => {
       console.log("Done Fetching Tweets!");
     });
   }
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log("🚀 Server Ready! at port:", PORT);
+  });
 });
