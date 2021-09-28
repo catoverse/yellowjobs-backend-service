@@ -122,7 +122,8 @@ exports.findSaved = async ({ userId }) => {
   });
 
   console.log("the ids:", string);
-  if (!string) throw new Error("No saved tweets");
+  // if (!string) throw new Error("No saved tweets");
+  if (!string) return [];
   const tweetObjects = await this.findAll({ IDs: string });
   return tweetObjects;
 };
