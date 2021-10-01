@@ -1,0 +1,86 @@
+{
+  "delete": [
+    "hire me",
+    "hire us",
+    "advice",
+    "article",
+    "check out my",
+    "check my",
+    "my cv",
+    "my resume",
+    "my portfolio",
+    "my profile",
+    "my work",
+    "premium",
+    "join our server",
+    "guide",
+    "ways you can",
+    "inspiration",
+    "scholarship",
+    "newsletter",
+    "podcast",
+    "listen to",
+    "tip",
+    "tips",
+    "premium",
+    "books",
+    "ebooks"
+  ],
+  "add": [
+    "am looking for",
+    "m looking for",
+    "is looking for",
+
+    "we are looking for",
+    "we re looking for",
+
+    "need a",
+    "if you are interested",
+    "budget"
+  ],
+  "alwaysAdd2": [
+    "now hiring",
+    "am hiring",
+    "m hiring",
+    "join us",
+    "are hiring",
+    "re hiring",
+    "is hiring",
+    
+    "come join",
+    "come and join",
+    "apply"
+  ],
+  "alwaysAdd": [
+    {
+      "$and": [
+        {
+          "$or": [
+            "remote",
+            "wfh",
+            "home",
+            "workfromhome",
+            "anywhere",
+            "remotely"
+          ]
+        },
+        {
+          "$or": [
+            "now hiring",
+            "am hiring",
+            "m hiring",
+            "join us",
+            "are hiring",
+            "re hiring",
+            "is hiring",
+
+            "come join",
+            "come and join",
+            "apply"
+          ]
+        }
+      ]
+    }
+  ],
+  "default": "markForVerification"
+}

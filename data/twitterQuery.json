@@ -1,3 +1,4 @@
 {
-    "query": "((hire -job -gig -role -am) OR (\"looking for\" -job -gig -role -am) OR hiring) remote -podcast -know -how -tips -nobody -anybody -anyone -blog -filter:retweets -filter:quote"
+
+    "query": "(hire OR hiring OR \"looking for\" OR internship OR interns OR intern OR freelance OR freelancer OR apprentice) -how -\"pls hire\" -\"hire me\" -\"hire us\" -\"advice\" -\"check my\" -tips -he -she -filter:retweets -filter:quote"
 }

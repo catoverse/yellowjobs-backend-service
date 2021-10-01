@@ -1,5 +1,6 @@
 const Tweet = require("../models/Tweet.schema");
 const Feedback = require("../models/Feedback.schema");
+
 const { parseRoles } = require("../parser");
 const roles_ = Object.values(require("../data/roles.json"))
   .flatMap((roles) => Object.keys(roles))
@@ -19,6 +20,7 @@ exports.findAll = async ({
   types,
   q,
   unverified,
+  IDs,
 }) => {
   //const mongoQuery = { $and: [{ need_manual_verification: false }] };
   const mongoQuery = {
@@ -83,7 +85,15 @@ exports.findAll = async ({
       // Log the query for manual inspection for updating the keywords list if neccessary
     }
   }
+  if (IDs) {
+    mongoQuery.$and.push({
+      $or: IDs.toLowerCase()
+        .split(",")
+        .map((tweet_id) => ({ tweet_id })),
+    });
+  }
 
+  console.log(mongoQuery);
   return (
     (await Tweet.find(mongoQuery, null, {
       limit: Number(limit),
@@ -112,7 +122,8 @@ exports.findSaved = async ({ userId }) => {
   });
 
   console.log("the ids:", string);
-  if (!string) throw new Error("No saved tweets");
+  // if (!string) throw new Error("No saved tweets");
+  if (!string) return [];
   const tweetObjects = await this.findAll({ IDs: string });
   return tweetObjects;
 };
