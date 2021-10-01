@@ -16,7 +16,7 @@ const tweetsRoutes = require("./routes/tweets");
 const metaRoutes = require("./routes/meta");
 const verificationRoutes = require("./routes/verification");
 const feedbackRoutes = require("./routes/feedback");
-
+const { deleteLastNDaysTweets } = require("./deleteScript");
 const app = express();
 
 const DB_URL = process.env.MONGO_URI;
@@ -65,7 +65,7 @@ mongoose
     console.log("✅ Database Connected!");
 
     fetchAndSaveTweets();
-
+   
     if (process.env.NODE_ENV === "production") {
       cron.schedule("*/5 * * * *", async () => {
         console.log("Fetching Tweets...");
@@ -85,3 +85,11 @@ mongoose
       categoryController.flush();
     });
   });
+
+
+ /**
+  * This function is to delete the tweets from the database for previous N number of days
+  * Parameters to be passed  (N, environment )
+  *  🔕🔕🔕🔕🔕🔕🔕🔕🔕🔕
+  */
+    // deleteLastNDaysTweets(31, "staging");
