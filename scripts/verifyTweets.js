@@ -20,6 +20,8 @@ connectDB().then(async () => {
   let deleted = 0;
   let marked = 0;
 
+  const finaltweets = [];;
+
   for(const tweet of tweets){
     if(tweet.need_manual_verification == "approved"){
       continue;
@@ -44,6 +46,7 @@ connectDB().then(async () => {
       marked++;
       break;
     case 1:
+      finaltweets.push(tweet);
       ops.push({
         updateOne: {
           filter: { text: tweet.text },
@@ -59,7 +62,8 @@ connectDB().then(async () => {
   console.log("Updating the database...");
 
   await Tweet.bulkWrite(ops);
-
+  // fs.writeFileSync("dump.json", JSON.strinfigy(finalTweets));
+  
   console.log("Done updating database. Script executed successfully.");
   process.exit();
 }).catch(console.error);

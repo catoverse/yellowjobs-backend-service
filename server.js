@@ -1,15 +1,12 @@
 require("dotenv").config();
 
-const cron = require("node-cron");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const mongoose = require("mongoose");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
-const { fetchAndSaveTweets } = require("./fetchTweets");
-const categoryController = require("./controllers/category");
+const { fetchAndSaveTweets } = require("./lib/fetchTweets");
 
 const { connect: connectDB } = require("./lib/db");
 const categoriesRoutes = require("./routes/categories");
@@ -20,7 +17,6 @@ const feedbackRoutes = require("./routes/feedback");
 
 const app = express();
 
-const DB_URL = process.env.MONGO_URI;
 const PORT = process.env.PORT || 4000;
 
 const swaggerDocs = swaggerJsDoc({
@@ -51,6 +47,7 @@ app.use("/api", metaRoutes);
 app.use("/api", verificationRoutes);
 app.use("/api", feedbackRoutes);
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 console.log(
   "⚠️Starting ",
   process.env.NODE_ENV == "production" ? "prod" : "staging",
@@ -62,11 +59,8 @@ connectDB().then(() => {
 
   fetchAndSaveTweets();
 
-  if (
-    process.env.NODE_ENV === "production" ||
-    process.env.NODE_ENV == "staging"
-  ) {
-    cron.schedule("*/1 * * * *", async () => {
+  if(process.env.NODE_ENV === "production" || process.env.NODE_ENV == "staging"){
+    setInterval(async () => {
       console.log("Fetching Tweets...");
       console.time("fetchTweets");
 
@@ -74,9 +68,9 @@ connectDB().then(() => {
 
       console.timeEnd("fetchTweets");
       console.log("Done Fetching Tweets!");
-    });
+    }, 5000);
   }
   app.listen(PORT, "0.0.0.0", () => {
     console.log("🚀 Server Ready! at port:", PORT);
   });
-});
+}).catch(console.error);

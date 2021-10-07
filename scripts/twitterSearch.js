@@ -16,4 +16,3 @@ connectDB().then(async () => {
 
   console.log(rawTweets);
 });
-
