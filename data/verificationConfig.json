@@ -84,10 +84,11 @@
     }
   ],
   "markForVerification": [
-    "location",
     "store",
     "onsite",
-    "on site"
+    "on site",
+    "office",
+    "non remote"
   ],
   "default": "markForVerification"
 }
