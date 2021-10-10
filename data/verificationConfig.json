@@ -84,7 +84,10 @@
     }
   ],
   "markForVerification": [
-
+    "location",
+    "store",
+    "onsite",
+    "on site"
   ],
   "default": "markForVerification"
 }
