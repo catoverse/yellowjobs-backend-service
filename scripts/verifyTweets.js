@@ -11,7 +11,7 @@ connectDB().then(async () => {
   console.log("Database connected.");
   console.log("Fetching tweets...");
 
-  const tweets = await (Tweet.find({}, null).exec());
+  const tweets = await (Tweet.find({}, null).limit(1000).exec());
 
   console.log(tweets.length + " tweets fetched.");
   console.log("Running validation code...");
@@ -61,7 +61,7 @@ connectDB().then(async () => {
   console.log(deleted + " tweets deleted.");
   console.log("Updating the database...");
 
-  await Tweet.bulkWrite(ops);
+  // await Tweet.bulkWrite(ops);
   // fs.writeFileSync("dump.json", JSON.strinfigy(finalTweets));
   
   console.log("Done updating database. Script executed successfully.");

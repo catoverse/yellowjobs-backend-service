@@ -3,7 +3,6 @@
     "hire me",
     "hire us",
     "advice",
-    "article",
     "check out my",
     "check my",
     "my cv",
@@ -11,20 +10,14 @@
     "my portfolio",
     "my profile",
     "my work",
-    "premium",
     "join our server",
     "guide",
     "ways you can",
     "inspiration",
     "scholarship",
-    "newsletter",
-    "podcast",
     "listen to",
     "tip",
-    "tips",
-    "premium",
-    "books",
-    "ebooks"
+    "tips"
   ],
   "add": [
     "am looking for",
@@ -49,7 +42,9 @@
     
     "come join",
     "come and join",
-    "apply"
+    "apply",
+    "new remote job",
+    "new opportunity"
   ],
   "alwaysAdd": [
     {
