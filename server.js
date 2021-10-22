@@ -68,7 +68,7 @@ connectDB().then(() => {
 
       console.timeEnd("fetchTweets");
       console.log("Done Fetching Tweets!");
-    }, 5000);
+    }, 3000);
   }
   app.listen(PORT, "0.0.0.0", () => {
     console.log("🚀 Server Ready! at port:", PORT);
