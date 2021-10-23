@@ -1,15 +1,16 @@
 const Tweet = require("../models/Tweet.schema");
 const Feedback = require("../models/Feedback.schema");
 
-const { parseRoles } = require("../parser");
+const { parseRoles } = require("../lib/parser");
+
+
 const roles_ = Object.values(require("../data/roles.json"))
   .flatMap((roles) => Object.keys(roles))
   .map((role) => ({ [role.toLowerCase().replace(/\s+/g, "")]: role }))
   .reduce((a, b) => ({ ...a, ...b }), {});
+
 const categories_ = Object.keys(require("../data/roles.json"))
-  .map((category) => ({
-    [category.toLowerCase().replace(/\s+/g, "")]: category,
-  }))
+  .map((category) => ({ [category.toLowerCase().replace(/\s+/g, "")]: category }))
   .reduce((a, b) => ({ ...a, ...b }), {});
 
 exports.findAll = async ({
