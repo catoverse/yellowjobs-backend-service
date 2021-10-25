@@ -64,14 +64,14 @@ mongoose
   .then(() => {
     console.log("✅ Database Connected!");
 
-    fetchAndSaveTweets();
+    //fetchAndSaveTweets();
 
     if (process.env.NODE_ENV === "production") {
       cron.schedule("*/5 * * * *", async () => {
         console.log("Fetching Tweets...");
         console.time("fetchTweets");
 
-        await fetchAndSaveTweets();
+        //await fetchAndSaveTweets();
 
         console.timeEnd("fetchTweets");
         console.log("Done Fetching Tweets!");
